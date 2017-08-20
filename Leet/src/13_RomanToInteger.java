@@ -1,3 +1,9 @@
+/*
+1. build roman letters mapping
+2. add when a[i]>a[i+1], otherwise minus  
+3. convert string to array in Java
+*/
+
 public class Solution {
     public int romanToInt(String s) {
         int res = 0;

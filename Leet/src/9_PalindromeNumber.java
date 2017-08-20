@@ -1,3 +1,10 @@
+/*
+corner case check:
+10^n
+negative
+loop ends when x==y or x/10==y
+*/
+
 public class Solution {
     public boolean isPalindrome(int x) {
         if ((x < 0) || (x!=0 && x%10==0))

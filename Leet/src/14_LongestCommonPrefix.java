@@ -1,3 +1,9 @@
+/*
+consider null case
+treak strings as 2D matrix
+scan per column
+*/
+
 class Solution {
     public String longestCommonPrefix(String[] strs) {
         if((strs == null) || (strs.length == 0))

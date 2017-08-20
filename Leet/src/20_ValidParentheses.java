@@ -1,3 +1,9 @@
+/*
+push symmatric "right" part to stack for "left" inputs
+check stack top for "right" inputs
+consider stack empty
+*/
+
 class Solution {
     public boolean isValid(String s) {
         Stack<Character> stk = new Stack<Character>();

@@ -1,4 +1,6 @@
-/**
+/*
+ * When one list reach end, connect remaining of the other list to res
+ *
  * Definition for singly-linked list.
  * public class ListNode {
  *     int val;

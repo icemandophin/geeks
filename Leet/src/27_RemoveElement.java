@@ -1,3 +1,8 @@
+/*
+similar to remove duplicate:
+copy a[i] to a[current_end] for mismatch element
+*/
+
 class Solution {
     public int removeElement(int[] nums, int val) {
         int pr = 0;

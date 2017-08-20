@@ -1,3 +1,9 @@
+/*
+one-time traverse: for each a[i]
+(1) check if X - a[i] exist in mapping
+(2) add {a[i], i} into mapping
+*/
+
 public class Solution {
     public int[] twoSum(int[] nums, int target) {
         int[] res = new int[2];
