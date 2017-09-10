@@ -1,3 +1,12 @@
+/*
+Caterpillar traverse - HashMap -
+use two index i, j to indicate substring boundary
+(1) move j forward until there is repeated char X
+(2) jump i to NEXT position of X first appear (so that X is unique in substring)
+(3) calculate current max length
+(4) go to (1)
+*/
+
 class Solution {
     public int lengthOfLongestSubstring(String s) {
         if (s.length() == 0)
