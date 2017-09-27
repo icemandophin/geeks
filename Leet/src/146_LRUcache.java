@@ -1,4 +1,5 @@
 /*
+LRU - evict least recently used item
 double linked list approach: O(1) for add/remove node
 nodes in list are ranked by oldest -> latest during read
 add dummy node at top & end as boundary
@@ -32,7 +33,8 @@ class LRUCache {
         this.top.next = this.end;
         this.end.prev = this.top;
     }
-
+    // first check item/key exist in list
+    // for each read, need to make item "fresh"
     public int get(int key) {
         if (!hash.containsKey(key)) {
             return -1;
@@ -52,7 +54,9 @@ class LRUCache {
         end.prev.next = node;
         end.prev = node;
     }
-
+    // if item/key exist, just update its value
+    // if not, need to insert to BOTH list and hash
+    // also need to handle cache full scenario (remove in both list and hash)
     public void put(int key, int value) {
         if (get(key) != -1) {
             // node exist, just update val
