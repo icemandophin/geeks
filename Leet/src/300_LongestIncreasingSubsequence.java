@@ -1,5 +1,5 @@
 /*
-DP approach: O(N)
+DP approach: O(N*N)
 dp[i] represent LIS ending with i
 dp[i] = max{dp[j] + 1}, where 0<=j<i and a[i]>a[j]
 */
