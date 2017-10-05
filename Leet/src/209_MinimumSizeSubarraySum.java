@@ -1,25 +1,27 @@
+/*
+catepillar approach with 2 pointers:
+increase front j until subarray sum no less than s
+then shrink back i and update min length until subarray sum < s again
+*/
 class Solution {
-    public int minSubArrayLen(int s, int[] nums) {
-        if((nums == null) || (nums.length == 0))
-        {
+    public int minSubArrayLen(int s, int[] a) {
+        if (a == null || a.length == 0) {
             return 0;
         }
-
-        int j = 0, i = 0;
-        int res = 0;
-        int min = Integer.MAX_VALUE;
-
-        while (j < nums.length)
-        {
-            res += nums[j++];
-
-            while (res >= s)
-            {
-                min = Math.min(min, j-i);
-                res -= nums[i++];
+        int res = Integer.MAX_VALUE;
+        // define pointers
+        int i = 0;
+        int j = 0;
+        // save current sum
+        int sum = 0;
+        for (j = 0; j < a.length; ++j) {
+            sum += a[j];
+            while (sum >= s) {
+                res = Math.min(res, j - i + 1);
+                sum -= a[i++];
             }
         }
-
-        return min == Integer.MAX_VALUE ? 0 : min;
+        // check if s is ever reached before return res
+        return res == Integer.MAX_VALUE ? 0 : res;
     }
 }
