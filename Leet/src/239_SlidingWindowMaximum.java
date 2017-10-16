@@ -1,3 +1,12 @@
+/*
+deque approach to save "useful" index: O(N)
+make index in deque ascending order
+for current a[i], window range is [i-k+1, i]
+from top: always poll index that out of range
+from end: always poll j that a[j] < new element (cannot be max)
+          then insert new element
+the head of deque is always index of current max value in window
+*/
 class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
         if ((nums == null) || (k <= 0)) {
