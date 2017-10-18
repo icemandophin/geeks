@@ -5,6 +5,7 @@ import java.util.concurrent.Executors;
 import java.lang.Thread;
 import java.net.*;
 import java.io.*;
+import java.util.concurrent.locks;
 
 class CrawlerThread extends Thread {
     private static BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
@@ -42,6 +43,7 @@ class CrawlerThread extends Thread {
             } catch (MalformedURLException e) {
                 // e.printStackTrace();
             }
+            lock.lock();
             if (!mp.containsKey(url) && domain.endsWith("wikipedia.org")) {
                 mp.put(url, true);
                 results.add(url);
@@ -54,6 +56,7 @@ class CrawlerThread extends Thread {
                     }
                 }
             }
+            lock.unlock();
         }
     }
 }
