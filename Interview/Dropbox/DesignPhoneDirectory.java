@@ -62,8 +62,11 @@ public class PhoneDirectory {
 
 /*
 optimize: replace hash set with BitSet
+allows for super large input size
 */
 public class PhoneDirectory {
+    // BitSet is made by LONG + LONG + ...
+    // each long can hold 64 phone numbers
     private BitSet pool;
     private int maxNum;
     private int next;
