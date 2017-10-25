@@ -1,0 +1,5 @@
+reference:
+https://hellosmallworld123.wordpress.com/2014/07/26/java-multithread-interview-questions/
+
+What are differences between wait and sleep method in java?
+Another frequently asked thread interview question in Java mostly appear in phone interview. Only major difference is wait release the lock or monitor while sleep doesn’t release any lock or monitor while waiting. Wait is used for inter-thread communication while sleep is used to introduce pause on execution.
