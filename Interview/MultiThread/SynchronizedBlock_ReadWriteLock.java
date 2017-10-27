@@ -10,10 +10,11 @@ public class ConcurrentHashMap {
     private final ReentrantReadWriteLock fLock = new ReentrantReadWriteLock();
     private final Lock readLock = fLock.readLock();
     private final Lock writeLock = fLock.writeLock();
-    private final HashMap<String, String> dataMap = new HashMap<String, String>();
+    private final HashMap<Integer, String> dataMap = new HashMap<>();
 
-    public String get(String key) {
+    public String get(int key) {
         String result = new String();
+        // wait until hash map available
         readLock.lock();
         try {
             result = dataMap.get(key);
@@ -27,7 +28,7 @@ public class ConcurrentHashMap {
         return result;
     }
 
-    public void set(String key, String value) {
+    public void set(int key, String value) {
         writeLock.lock();
         try {
             dataMap.put(key, value);
@@ -39,20 +40,40 @@ public class ConcurrentHashMap {
             writeLock.unlock();
         }
     }
+	public static void main(String[] args) {
+		ConcurrentHashMap test = new ConcurrentHashMap();
+        Thread wp = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 100; i++) {
+                        try {
+                			test.set(i, Integer.toString(i));
+                			System.out.println("add: " + Integer.toString(i));
+                        } catch (Exception e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                }
+            }
+
+        });
+        Thread rp = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int j = 0; j < 100; j++) {
+                        try {
+                        	String buf = test.get(j);
+                            System.out.println("get: " + buf);
+                        } catch (Exception e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                }
+            }
+
+        });
+        wp.start();
+        rp.start();
+	}
+
 }
-
-/*
-Local Variable: Each thread will have its own stack and local variable is stored
-in the stack, so it is thread safe.
-Local Object: Local Object’s reference is thread safe, however, the local object
-itself is not necessarily the same. As long as the reference is not shared between
-the threads, then it is thread safe. Otherwise, it is not.
-Object Members: Are not thread safe, because it is stored in the shared heap.
-
-To achieve thread safety:
-1. use immutable objects: Although the immutable object itself is thread safe,
-its reference may be not.
-2. Use synchronized block: all the synchronized block are synchronized on the object.
-If one of the synchronized block is being executed by one thread, the other thread
-must wait until the modification is done to enter a synchronized block on the same object.
-*/

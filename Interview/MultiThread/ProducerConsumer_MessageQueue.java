@@ -2,12 +2,12 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class ProducerConsumer {
-    // impplement Msg Queue using shared blocking queue
+    // implement Msg Queue using shared blocking queue
     // volatile - change visible across threads
     private volatile BlockingQueue<Integer> msgQueue = new LinkedBlockingQueue<Integer>();
 
-    public Producer(final int size)  {
-        //producer thread
+    public ProducerConsumer(final int size)  {
+        // producer thread
         Thread p = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -26,9 +26,7 @@ public class ProducerConsumer {
 
         });
         p.start();
-    }
-
-    public Consumer(final int size) {
+        // consumer thread
         Thread c = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -48,9 +46,7 @@ public class ProducerConsumer {
     }
 
     public static void main(String [] args) {
-        Producer p = new Producer(10);
-        Consumer c1 = new Consumer(3);
-        Consumer c2 = new Consumer(2);
+    	ProducerConsumer pc = new ProducerConsumer(100);
     }
 
 }

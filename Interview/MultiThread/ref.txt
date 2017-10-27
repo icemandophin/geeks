@@ -3,3 +3,11 @@ https://hellosmallworld123.wordpress.com/2014/07/26/java-multithread-interview-q
 
 What are differences between wait and sleep method in java?
 Another frequently asked thread interview question in Java mostly appear in phone interview. Only major difference is wait release the lock or monitor while sleep doesn’t release any lock or monitor while waiting. Wait is used for inter-thread communication while sleep is used to introduce pause on execution.
+
+Conditions for dead lock:
+mutual exclusive, non-preemption, hold and wait, and circular wait.
+If you can break any of them, for example enforce an order of aquiring the resource, then the dead lock can be solved.
+
+What is atomic operation?
+Atomicity is a guarantee of isolation from concurrent processes.
+Additionally, atomic operations commonly have a succeed-or-fail definition — they either successfully change the state of the system, or have no apparent effect.
