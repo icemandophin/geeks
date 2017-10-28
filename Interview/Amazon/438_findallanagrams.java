@@ -28,7 +28,7 @@ class Solution {
             if (map.containsKey(c)) {
                 // decrease # of c
                 map.put(c, map.get(c) - 1);
-                // if c mapped to 0, decrease cnt
+                // if all of c in p matched, shrink cnt
                 if (map.get(c) == 0) {
                     cnt--;
                 }
