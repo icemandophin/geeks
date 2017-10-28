@@ -3,9 +3,6 @@ operation always related to prev 1/2 results => stack push/pop
 for each operation, calculate result of this op and push to stack
 later pop out for R/W
 */
-package Amazon;
-import java.util.*;
-
 class Solution {
     public int calPoints(String[] ops) {
         if (ops == null || ops.length == 0) {
@@ -33,7 +30,7 @@ class Solution {
                     // always save result of cur step to stk
                     stk.push(cur);
                     break;
-                case "X":
+                case "D":
                     int last = stk.pop();
                     cur = last * 2;
                     res += cur;
@@ -41,8 +38,7 @@ class Solution {
                     stk.push(last);
                     stk.push(cur);
                     break;
-                case "Z":
-                    // remove it from result also
+                case "C":
                     res -= stk.pop();
                     break;
                 default:
@@ -52,10 +48,6 @@ class Solution {
                     // SL da fa hao!
                     stk.push(cur);
                     break;
-            }
-            if (stk.isEmpty()) {
-                stk.push(0);
-                stk.push(0);
             }
         }
         return res;

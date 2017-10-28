@@ -1,9 +1,9 @@
 package Amazon;
 import java.util.*;
 public class movies {
-   public static void main(String[] args){
+   public static void main(String[] args) {
 	   Scanner in = new Scanner(System.in);
-	   PriorityQueue<Movie> queue = new PriorityQueue<Movie>(new Comparator<Movie>(){
+	   PriorityQueue<Movie> queue = new PriorityQueue<Movie>(new Comparator<Movie>() {
 		   @Override
 		   public int compare(Movie m1, Movie m2){
 			   return new Float(m2.getRating()).compareTo(m1.getRating());
@@ -22,7 +22,7 @@ public class movies {
 	   for (Movie M:movie.getSimilarMovies()){
 		   if (!queue.contains(M)){
 			   queue.offer(M);
-			   
+
 			   bfsSearchMovies(M,queue);
 		   }
 	   }
