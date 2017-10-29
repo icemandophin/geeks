@@ -21,10 +21,8 @@ public class Solution {
     		return 0;
     	}
     	int res = 0;
-    	// sort array for BST build
-    	Arrays.sort(a);
     	// build BST
-    	TreeNode root = sortedArrayToBST(a);
+    	TreeNode root = buildBST(a);
     	// check if p, q exist in BST
     	if (bstSearch(root, p) && bstSearch(root, q)) {
         	// find LCA of p and q
