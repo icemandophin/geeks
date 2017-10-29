@@ -104,6 +104,28 @@ public class Solution {
     	return res;
     }
     /************************************************************************/
+    // build BST with insertion
+    public TreeNode buildBST(int[] a) {
+        TreeNode root = new TreeNode(a[0]);
+        for (int i = 1; i<a.length; ++i) {
+            createbst(root, a[i]);
+        }
+    }
+    public static void createbst(TreeNode root, int val) {
+        if (val < root.val) {
+            if (root.left == null) {
+                root.left = new TreeNode(val);
+            } else {
+                createbst(root.left,val);
+            }
+        }else {
+            if (root.right == null){
+                root.right = new TreeNode(val);
+            }else{
+                createbst(root.right,val);
+            }
+        }
+    }
 	// find LCA in binary tree
     public TreeNode binaryTreeLCA(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null || root == p || root == q) {
@@ -180,11 +202,11 @@ public class arrayBSTLCAdistance {
     		return 0;
     	}
     }
-    public static void createbst(TreeNode root, int val){
-    	if (val < root.val){
-    		if (root.left == null){
+    public static void createbst(TreeNode root, int val) {
+    	if (val < root.val) {
+    		if (root.left == null) {
     			root.left = new TreeNode(val);
-    		}else {
+    		} else {
     			createbst(root.left,val);
     		}
     	}else {

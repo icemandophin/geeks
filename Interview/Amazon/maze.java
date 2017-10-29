@@ -1,5 +1,4 @@
 package Amazon;
-
 import java.util.*;
 
 public class maze {
@@ -24,9 +23,9 @@ public class maze {
     			int x = buff[0] + dir[0];
     			int y = buff[1] + dir[1];
     			int sum = 0;
-    			while(x>=0 && y>=0 && x<maze.length && y < maze[0].length && maze[x][y] == 0){
-    				x +=dir[0];
-    				y +=dir[1];
+    			while(x>=0 && y>=0 && x<maze.length && y < maze[0].length && maze[x][y] == 0) {
+    				x += dir[0];
+    				y += dir[1];
     				sum++;
     			}
     			if (distance[buff[0]][buff[1]] + sum < distance[x-dir[0]][y-dir[1]]){
@@ -37,7 +36,7 @@ public class maze {
     	}
     	return distance[dest[0]][dest[1]] == Integer.MAX_VALUE ? -1:distance[dest[0]][dest[1]];
     }
-    
+
 //*************BFS *******************************************
     public static int shortestBFS(int[][] maze ,int[] start ,int[] dest){
     	int m = maze.length, n = maze[0].length;
@@ -49,7 +48,7 @@ public class maze {
     		int[] curr = q.poll();
     		for(int d = 0;d < 4;d++){
     			int x = curr[0], y = curr[1], count = 0;
-    			while(x+dirs[d] >= 0 && x+dirs[d] < m && y+dirs[d+1] >= 0 && y+dirs[d+1] < n && 
+    			while(x+dirs[d] >= 0 && x+dirs[d] < m && y+dirs[d+1] >= 0 && y+dirs[d+1] < n &&
     					maze[x+dirs[d]][y+dirs[d+1]] == 0){
     				x += dirs[d];
     				y += dirs[d+1];
@@ -61,11 +60,11 @@ public class maze {
     				q.offer(new int[]{x,y});
     			}
     		}
-    		
-    				
+
+
     		}
     	return path[dest[0]][dest[1]] == 0?
     			-1 : path[dest[0]][dest[1]];
-    			
+
     }
     	}

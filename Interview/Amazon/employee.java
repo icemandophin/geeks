@@ -1,5 +1,4 @@
-package Amazon;
-
+package amazon;
 import java.util.*;
 
 public class employee {
@@ -19,45 +18,47 @@ public class employee {
     		return reports;
     	}
     }
-	
+
 	public static void main(String[] args){
-		
+
 	}
-	
-	
-	public static Employee comManager (Employee ceo,Employee emp1,Employee emp2){
+
+	public static Employee comManager(Employee ceo, Employee emp1, Employee emp2) {
 		Stack<Employee> e1 = new Stack<Employee>();
 		Stack<Employee> e2 = new Stack<Employee>();
 		Employee root = ceo;
+        // find their report line
 		dfs(root,emp1,e1);
 		dfs(root,emp2,e2);
-		if ((!e1.isEmpty() && e1.peek().getId() == emp1.getId())&&(!e2.isEmpty() && e2.peek().getId() == emp2.getId())){
+		if ((!e1.isEmpty() && e1.peek().getId() == emp1.getId()) &&
+            (!e2.isEmpty() && e2.peek().getId() == emp2.getId())) {
 			int len1 = e1.size();
 			int len2 = e2.size();
-			if (len1 > len2){
-				moveUp(e1,len1-len2);
-			}else {
-				moveUp(e2,len2-len1);
+			if (len1 > len2) {
+				moveUp(e1, len1 - len2);
+			} else {
+				moveUp(e2, len2 - len1);
 			}
-			while (e1.size()>0 && e1.peek().getId() != e2.peek().getId()){
+			while (e1.size() > 0 && e1.peek().getId() != e2.peek().getId()) {
+                // pop until common manager found
 				e1.pop();
 				e2.pop();
 			}
-			if (e1.size() > 0){
+			if (e1.size() > 0) {
 				return e1.peek();
-			}
-			
+            }
 		}
 		return null;
 
 	}
-	
+
 	public static void moveUp(Stack<Employee> stack,int steps){
 		while(steps > 0 && !stack.isEmpty()){
 			stack.pop();
 			steps--;
 		}
 	}
+
 	public static boolean dfs(Employee ceo,Employee emp, Stack<Employee> stack){
 		stack.push(ceo);
 		if (ceo.getId() == emp.getId()){
@@ -67,14 +68,14 @@ public class employee {
 			boolean result = dfs(em,emp,stack);
 			if (result == true){
 				return true;
-			}
-			
+            }
 		}
+        // backtrack
 		stack.pop();
 		return false;
 	}
-	
-	
+
+
 //************************************************************Tree**************************************
 	public static Employee comManagerTree(Employee ceo,Employee emp1,Employee emp2){
 		if (ceo == null || ceo == emp1 || ceo == emp2){
@@ -100,6 +101,6 @@ public class employee {
 			return emp2;
 		}
 		return null;
-		
+
 	}
 }
