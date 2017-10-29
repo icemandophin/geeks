@@ -8,32 +8,45 @@ public class validParentheses {
     	System.out.println(isValid(s));
     }
 
-    public static boolean isValid(String s) {
-        if (s == null || s.length() == 0){
-            return true;
-        }
-        Stack mystack = new Stack();
-        for (int i = 0;i<s.length();i++){
-            char buff = s.charAt(i);
-            if (buff == '(' || buff  == '{' || buff == '['){
-                mystack.push(buff);
-            }else{
-                if (mystack.isEmpty()){
-                    return false;
-                }else if ((buff == ')' && (char)mystack.peek() != '(')||(buff == ']' && (char)mystack.peek() != '[')||(buff == '}' && (char)mystack.peek() != '{')){
-                    return false;
-                }else {
-                    mystack.pop();
-                }
-            
+    public boolean isValid(String s) {
+        Stack<Character> stk = new Stack<Character>();
+
+        for(char c : s.toCharArray())
+        {
+            switch(c)
+            {
+                case '(':
+                    stk.push(')');
+                    break;
+                case '{':
+                    stk.push('}');
+                    break;
+                case '[':
+                    stk.push(']');
+                    break;
+                case ')':
+                    if(stk.isEmpty() || stk.pop() != c)
+                    {
+                        return false;
+                    }
+                    break;
+                case ']':
+                    if(stk.isEmpty() || stk.pop() != c)
+                    {
+                        return false;
+                    }
+                    break;
+                case '}':
+                    if(stk.isEmpty() || stk.pop() != c)
+                    {
+                        return false;
+                    }
+                    break;
+                default:
+                    break;
             }
-            
         }
-        if (mystack.empty() == true){
-            return true;
-        }else {
-            return false;
-        }
+
+        return stk.isEmpty();
     }
-    
 }
