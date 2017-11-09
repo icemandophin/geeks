@@ -25,7 +25,7 @@ public class Solution {
         if (k > prices.length / 2) {
             int sum = 0;
             for (int i = 1; i < prices.length; i++) {
-                if (prices[i] > prices[i-1]) {
+                if (prices[i] > prices[i - 1]) {
                     sum += prices[i] - prices[i - 1];
                 }
             }
@@ -64,17 +64,17 @@ public class Solution {
             return sum;
         }
         // record cur max profit after buy/sell at day[i]
-        int[] sell = new int[k+1];
-        int[] buy = new int[k+1];
-        for (int i = 0; i < k+1; i++) {
+        int[] sell = new int[k + 1];
+        int[] buy = new int[k + 1];
+        for (int i = 0; i < k + 1; i++) {
             buy[i] = Integer.MIN_VALUE;
         }
         for (int i = 0; i < prices.length; i++) {
-            for (int j = 1; j < k+1; j++) {
+            for (int j = 1; j < k + 1; j++) {
                 // cur max profit after sell at day[d]
                 sell[j] = Math.max(sell[j], buy[j] + prices[i]);
                 // cur max profit after buy at day[d]
-                buy[j] = Math.max(buy[j], sell[j-1] - prices[i]);
+                buy[j] = Math.max(buy[j], sell[j - 1] - prices[i]);
             }
         }
         return sell[k];
