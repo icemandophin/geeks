@@ -17,12 +17,12 @@ public class Trie {
     // insert word into trie
     public void insert(String word) {
         TrieNode cur = root;
-        HashMap<Character, TrieNode> curChild = root.children;
         char[] wordArray = word.toCharArray();
         int i;
         char wc;
         for (i = 0; i< wordArray.length; ++i) {
             wc = wordArray[i];
+            HashMap<Character, TrieNode> curChild = cur.children;
             if (curChild.containsKey(wc)) {
                 cur = curChild.get(wc);
             }
@@ -59,7 +59,7 @@ public class Trie {
                 curChild = cur.children;
             }
             else {
-                return null;
+                return false;
             }
         }
         return cur;

@@ -1,5 +1,5 @@
 /*
-Caterpillar traverse - HashMap -
+Caterpillar traverse - HashMap:
 use two index i, j to indicate substring boundary
 (1) move j forward until there is repeated char X
 (2) jump i to NEXT position of X first appear (so that X is unique in substring)
@@ -24,8 +24,9 @@ class Solution {
             {
                 j = Math.max(j, hash.get(s.charAt(i))+1);
             }
+            // s[i] is unique, add to map
             hash.put(s.charAt(i), i);
-            res = Math.max(res, i-j+1);
+            res = Math.max(res, i - j + 1);
         }
 
         return res;
