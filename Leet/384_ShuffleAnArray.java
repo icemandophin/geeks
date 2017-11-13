@@ -1,3 +1,6 @@
+/*
+Fisher–Yates shuffle
+*/
 public class Solution {
     private int[] nums;
     private Random random;

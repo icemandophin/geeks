@@ -1,0 +1,42 @@
+Virtual functions
+a. What is the usage of virtual functions?
+A virtual function a member function which is declared within base class and
+re-defined (Overriden) by derived class.
+If we need to override a certain behavior in derived class through a pointer to the base class
+during run-time, we need virtual function.
+
+b. When should we define virtual destructor?
+When we have a virtual function in a class, we should always add a virtual destructor
+When we delete a derived class object using a pointer to a base class, if base class
+has non-virtual destructor it can lead to undefined behavior - like destroy base obj.
+
+c. What is Vtable?
+It is the way C++ implements polymorphism. For each concrete implementation of a class,
+there is a table of function pointers to all the virtual methods. A pointer to virtual table
+exists as a data member in all the objects. When one calls a virtual function, we
+lookup the objects Vtable and call the appropriate derived calls function.
+
+d. When a function is defined virtual in the base class, does it have to
+be virtual in the derived class as well?
+No - it is NOT necessary; override method in derived class is virtual anyway
+
+const keyword - specify the object cannot be modified
+a. What does “const” key word mean in front of a function declaration?
+constant method means it cannot modify any member variable of the class, unless
+it is declared mutable.
+If object is constant, only its const method can be called
+
+b. How can we change member variables in a function which is declared as
+constant?
+Create casted version of “This” pointer:
+class A() {
+    const int var = 10;
+    A* ptr =  const_cast<A*>(this);
+    ptr->x= 10;
+}
+
+Implement an API to manage connections and sessions with the
+following requirements
+a. Connections from one client should be always served in one session
+b. New connection should be served by the session with minimum number of
+connections
