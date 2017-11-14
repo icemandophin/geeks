@@ -40,3 +40,16 @@ following requirements
 a. Connections from one client should be always served in one session
 b. New connection should be served by the session with minimum number of
 connections
+
+What is exception handling and how is it handled in C++?
+handle errors during program execution
+try {} catch (e) {}
+
+What happens in C++, if constructor fails?
+throw exception
+
+hat happens in C++, if constructor fails?
+- How can you call base class constructor from derived class
+by default derived class always calls the constructors of its base class
+if needed to call derived class constructor, specify which base class constructor to call:
+class Rectangle : public Shape { Rectangle(int h, int w) : Shape(h, w) {...} }
