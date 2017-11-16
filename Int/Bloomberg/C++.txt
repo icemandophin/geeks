@@ -1,6 +1,6 @@
 Virtual functions
 a. What is the usage of virtual functions?
-A virtual function a member function which is declared within base class and
+virtual function: a member function which is declared within base class and
 re-defined (Overriden) by derived class.
 If we need to override a certain behavior in derived class through a pointer to the base class
 during run-time, we need virtual function.
@@ -53,3 +53,90 @@ hat happens in C++, if constructor fails?
 by default derived class always calls the constructors of its base class
 if needed to call derived class constructor, specify which base class constructor to call:
 class Rectangle : public Shape { Rectangle(int h, int w) : Shape(h, w) {...} }
+
+- what is virtual function?
+ember function which is declared within base class and re-defined in derived class
+
+- what is pure virtual function?
+virtual function that required to be implemented in derived class
+virtual void f() = 0;
+
+- what is difference between copy constructor and assignment operator
+copy constructor is used to initialize a previously uninitialized object from
+some other object's data
+assignment operator is used to replace the data of a previously initialized object
+with some other object's data
+
+- what is polymorphism?
+the ability to have many forms
+
+- what is name mangling?
+c++ compiler add argument information to function names to distinguish overloading
+functions
+
+- can we use exception in destructor? what would be the behavior
+Dangerous - if another exception is already propagating the application will terminate
+
+- difference between c & c++?
+OO paradigm, Standard Library, RAII(with smart pointer), name scope
+
+- difference between new and malloc?
+new operator allocates memory then calls the constructor
+delete calls the destructor then deallocates the memory
+malloc & free just allocate and release raw memory
+
+- difference between vector and array?
+array: fixed size
+vector: size can change
+
+- what is the internal implementation of vector and what is the data structure vector uses?
+templated class which wraps a native array, use allocator to get new chunk of space
+
+- how does map work in C++? what is the internal data structure? what is the time complexity?
+implemented with red-black tree; O(log N)
+
+JSON vs XML:
+JSON
+Pro:
+Simple syntax, which results in less "markup" overhead compared to XML.
+Easy to use with JavaScript as the markup is a subset of JS object literal notation and has the same basic data types as JavaScript.
+JSON Schema for description and datatype and structure validation
+JsonPath for extracting information in deeply nested structures
+Con:
+Simple syntax, only a handful of different data types are supported.
+
+XML
+Pro:
+Generalized markup; it is possible to create "dialects" for any kind of purpose
+XML Schema for datatype, structure validation. Makes it also possible to create new datatypes
+XSLT for transformation into different output formats
+XPath/XQuery for extracting information in deeply nested structures
+built in support for namespaces
+Con:
+Relatively wordy compared to JSON (results in more data for the same amount of information).
+
+Implement a shared pointer for use in multiple threads:
+shared_ptr<> is a mechanism to ensure that multiple object owners ensure an object is destructed,
+not a mechanism to ensure multiple threads can access an object correctly
+
+why are c-style casts bad in c++ sometimes?
+C-style casts may let you do conversions you didn't intend
+
+differences between static_cast, const_cast, dynamic_cast, reinterpret_cast?
+static_cast implicit conversions between types (such as int to float, or pointer to void*)
+const_cast can be used to remove or add const to a variable
+dynamic_cast is almost exclusively used for handling polymorphism.
+reinterpret_cast is the most dangerous cast, it turns one type directly into another
+
+static keyword:
+Static variables in a class: initialized only once, not shared by the objects,
+keep its value during program lifetime
+Static functions in a class: not depend on object of class (invoke with class.method),
+access only the static data members or other static member functions
+
+How do you avoid dead locking?
+
+difference between multi-processing and multi-threading?
+Multiprocessing adds CPUs to increase computing power.
+Multithreading creates multiple threads of a single process to increase computing power.
+Creation of a process is more expensive than creation of a thread
