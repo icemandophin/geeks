@@ -12,6 +12,7 @@ class Solution {
 
     private void backtrack(List<List<Integer>> res, List<Integer> cur, int [] nums, int start){
         res.add(new ArrayList<>(cur));
+        // build larger subset from prev smaller subset
         for(int i = start; i < nums.length; ++i){
             cur.add(nums[i]);
             // no dup value

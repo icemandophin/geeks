@@ -298,3 +298,14 @@ Leetcode_283
 Say you have an array of version numbers ["1.1.10", "1.2.10.3", "2.1", etc],
 sort them?
 Leetcode_165
+
+Kth Smallest Element in a BST？
+Leetcode_230
+
+Least Recently used cache implementation?
+Leetcode_146
+
+a special array, unsorted, don't care about the sequence, make the
+deletion operation use constant time. (Hint, if delete a middle item,
+pop the last item to fill it)?
+swap the target a[i] with last one a[N-1], then decrease array size by one

@@ -135,8 +135,71 @@ Static functions in a class: not depend on object of class (invoke with class.me
 access only the static data members or other static member functions
 
 How do you avoid dead locking?
+Mutual exclusion condition: a resource that cannot be used by more than one process at a time
+Hold and wait condition: processes already holding resources may request new resources
+No preemption condition: No resource can be forcibly removed from a process holding it,
+resources can be released only by the explicit action of the process
+Circular wait condition: two or more processes form a circular chain where each
+process waits for a resource that the next process in the chain holds
+Resolve:
+make sure that all locks are always taken in the same order by any thread
+eg: always lock A->B->C
+put a timeout on lock attempts
+Every time a thread takes a lock it is noted in a data structure (map, graph etc.)
+When a thread requests a lock but the request is denied, the thread can traverse
+the lock graph to check for deadlocks
 
 difference between multi-processing and multi-threading?
 Multiprocessing adds CPUs to increase computing power.
 Multithreading creates multiple threads of a single process to increase computing power.
 Creation of a process is more expensive than creation of a thread
+
+Given a huge list of objects with very high frequency lookup and update and the
+order of objects need to be maintained, what data structure should be used and why
+LinkedHashMap
+
+difference between interface and abstract class?
+An interface is an empty shell. There are only the signatures of the methods,
+which implies that the methods do not have a body. It's just a pattern.
+Abstract class can have explicit members defined in it
+
+How C++ call C functions?
+just declare the C function extern "C" (in your C++ code) and call it
+
+How C++ compiler deal with function overload?
+It's all done at compile time. The C++ compiler actually modifies the function names:
+int foo(int a, float b, char c)  -> func_foo_int_float_char()
+
+Given a vector of strings which contains duplicate words except for one, find the unique one?
+hashset or sorting
+
+Virtual Inheritance?
+ensures only one copy of a base class's member variables are inherited by grandchild derived classes.
+
+1. How would you choose a thread from a list of threads already
+running and how would you pass a parameter to it?
+std::thread(func1,a,b,c,d);
+
+2. How would you guarantee deleting a pointer you created in a C++ function?
+Correct way:
+myPointer = new int;
+delete myPointer; //freed memory
+myPointer = NULL; //pointed dangling ptr to NULL
+Better way:
+use smart pointer
+
+3. What methods will you write in implementing a smart pointer.
+What will the constructor do?
+
+4. How will you calculate the frequency of a set of fruits say
+Apples, Oranges, Bananas and print them in sorted order of frequency.
+E.g. Oranges 5, Apples 9, Bananas 12, etc.
+HashMap + Priority Queue
+
+6. In Java, there's a "finally" clause that can be used with a try,
+catch block that is used to handle last minute cleanup.
+Why isn't there anything like this in C/C++?
+The reason that C++ does not have finally is because it is not needed in C++.
+finally is used to execute some cleanup code, In C++, this cleanup code should be
+in the destructor of the relevant class and the destructor will always be called.
+he idiom of using the destructor for your cleanup is called RAII.
