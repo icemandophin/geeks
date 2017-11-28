@@ -5,7 +5,7 @@ p1 X p2: (right hand)
 = 0: p1 collinear p2
 < 0: p1 counter-clockwise to p2 > 180
 
-For each set of three adjacent points A, B, C, find the cross product AB · BC.
+For each set of three adjacent points A, B, C, find the cross product BA X BC.
 If the sign of all the cross products is the same, the angles are all positive
 or negative (depending on the order of visit) the polygon is convex.
 

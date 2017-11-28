@@ -12,7 +12,7 @@ min heap approach: time: O(nklogk) space: O(k)
 public class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
         // build min heap of size k
-        PriorityQueue<ListNode> pq = new PriorityQueue<>(new Comparator<ListNode>(){
+        PriorityQueue<ListNode> pq = new PriorityQueue<>(new Comparator<ListNode>() {
             @Override
             public int compare(ListNode a, ListNode b) {
                 return a.val - b.val;

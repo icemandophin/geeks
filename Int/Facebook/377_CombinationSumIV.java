@@ -2,6 +2,8 @@
 DP approach:
 comb[target] = Sum{comb[target - nums[i]]} => divide to dependent sub problems
 Need backtrack if specific route/combination is required
+Notice diff from 518: outer loop is for X => build each dp value with all possible
+coin combination (with sequence)
 */
 class Solution {
     public int combinationSum4(int[] a, int x) {

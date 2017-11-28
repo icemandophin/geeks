@@ -1,5 +1,11 @@
 /*
 max heap approach: O(NlogN) time, O(N) space
+for each building, mark start edge with -h and end edge with h
+need to maintain max height during runtime => build max heap:
+for start edge => insert h
+for end edge => poll h
+heap root is cur max height that should be added to res
+remove duplicate in res => keep and compare prev max 
 */
 class Solution {
     public List<int[]> getSkyline(int[][] buildings) {

@@ -31,6 +31,7 @@ class Solution {
                 NestedInteger em = new NestedInteger();
                 // NestedInteger em is part of upper layer
                 // hence add to cur stack top
+                // notice it is always pass by ref - res contains all sub obj
                 sk.peek().add(em);
                 sk.push(em);
                 // move start to next index
@@ -46,7 +47,7 @@ class Solution {
                 // move start to next index
                 // handle next NestedInteger
                 start = i + 1;
-                //
+                // current layer end
                 if (a[i] == ']') {
                     sk.pop();
                 }

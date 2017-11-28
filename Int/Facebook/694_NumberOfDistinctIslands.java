@@ -1,6 +1,6 @@
 /*
 similiar DFS like #200 number of islands
-
+distinguish diff island: calculate coordinate diff between (x, y) and upper-left root
 */
 class Solution {
     private static int[][] delta = { {0, 1}, {1, 0}, {0, -1}, {-1, 0} };

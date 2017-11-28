@@ -1,7 +1,7 @@
 /*
 dp[i][j] indicates number of combinations that make value j with first i coins
 dp[i][j] = dp[i - 1][j] + (j >= coins[i - 1] ? dp[i][j - coins[i - 1]] : 0)
-notice the i muast be outer loop: build full value  with min coin, then add coin number
+notice the i must be outer loop: build full value with min coin, then add coin number
 */
 class Solution {
     public int change(int x, int[] a) {
@@ -33,6 +33,7 @@ class Solution {
         // dp[i] is number of ways to make value i
         int[] dp = new int[x + 1];
         dp[0] = 1;
+        // outer loop is for coin => add to all possible dp value
         for (int coin : a) {
             // find all dp[] that can make with cur coin
             for (int i = coin; i <= x; ++i) {
