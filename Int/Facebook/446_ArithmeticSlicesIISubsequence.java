@@ -11,7 +11,7 @@ class Solution {
     public int numberOfArithmeticSlices(int[] a) {
         int n = a.length;
         // create list of hashmap to record a[i]'s diff value and # of Arithmetic sequence per diff
-        // map[i].get(d) indicates # of Arithmetic sequence (with diff d) between [0, i]
+        // map[i].get(d) indicates # of Arithmetic sequence (with diff d and last element a[i]) between [0, i]
         Map<Long, Integer>[] map = new Map[n];
         int res = 0;
 
