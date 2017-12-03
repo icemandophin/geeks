@@ -23,7 +23,7 @@ public class HitCounter {
     public void hit(int timestamp) {
         q.offer(timestamp);
     }
-
+    // pull "expired" hit when getting hit counts
     public int getHits(int timestamp) {
         while (!q.empty() && timestamp - queue.peek() >= 300) {
             q.pull();
@@ -52,11 +52,14 @@ public class HitCounter {
     public void hit(int timestamp) {
         int i = timestamp % 300;
         if (time[i] != timestamp) {
-            // reset outdated time/hit
+            // it has been more than 300s since last hit of this time bucket
+            // need reset outdated time/hit
             time[i] = timestamp;
             hit[i] = 1;
         }
         else {
+            // new hit arrive at the same time unit
+            // just add hit count
             hit[i]++;
         }
     }
@@ -64,6 +67,7 @@ public class HitCounter {
     public int getHits(int timestamp) {
         int res = 0;
         for (int i = 0; i < 300; ++i) {
+            // find all hit buckets that has time stamp within 300s
             if (timestamp - time[i] < 300) {
                 res += hit[i];
             }

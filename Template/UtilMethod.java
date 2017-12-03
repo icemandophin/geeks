@@ -12,3 +12,10 @@ boolean check = Character.isLetterOrDigit(ch);
 
 // convert case
 char low = Character.toLowerCase(ch);
+
+// sort customized array
+Pair[] sorted = Collections.sort(pairs, new Comparator<Pair>(){
+    public int compare(Pair a, Pair b) {
+        return a.x - b.x;
+    }
+});
