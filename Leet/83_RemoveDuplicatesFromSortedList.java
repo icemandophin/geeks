@@ -25,3 +25,30 @@ class Solution {
         return head;
     }
 }
+
+/*
+another approach:
+update x.next during each iteration
+handle 1->1 and 1->1->1->1->1 scenario
+*/
+public class Solution {
+	public ListNode deleteDuplicates(ListNode a) {
+	    if (a == null || a.next == null) {
+	        return a;
+	    }
+
+	    ListNode x = a;
+	    ListNode y = a.next;
+
+	    while (y != null) {
+	        if (x.val == y.val) {
+	            x.next = y.next;
+	        } else {
+	            x = y;
+	        }
+	        y = y.next;
+	    }
+
+	    return a;
+	}
+}
