@@ -24,6 +24,9 @@ char low = Character.toLowerCase(ch);
 // split array with "/"
 String cut = str.split("/");
 
+// return reverse-order/descending Comparator 
+PriorityQueue maxHeap = new PriorityQueue<Integer>(Collections.reverseOrder());
+
 // sort customized array
 Pair[] sorted = Collections.sort(pairs, new Comparator<Pair>(){
     public int compare(Pair a, Pair b) {
