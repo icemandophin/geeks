@@ -1,63 +1,34 @@
 /*
-iterative DP approach:
-dp[target] = sum(dp[target - nums[i]])
-where 0 <= i < nums.length, and target >= nums[i]
+DP approach:
+comb[target] = Sum{comb[target - nums[i]]} => divide to dependent sub problems
+Need backtrack if specific route/combination is required
+Notice diff from 518: outer loop is for X => build each dp value with all possible
+coin combination (with sequence)
 */
 class Solution {
-    public int combinationSum4(int[] nums, int target) {
-        // store combination results for target [0 : target]
-        int[] dp = new int[target + 1];
-        // when target = 0, only one way to get zero, which is using 0
-        // hence dp[0] = 1
+    public int combinationSum4(int[] a, int x) {
+        if (a == null || a.length == 0) {
+            return 0;
+        }
+        // save one for empty
+        int[] dp = new int[x + 1];
         dp[0] = 1;
-        // traverse from 1 to target
-        // for each element, traverse source array and add up all sub dp value
-        for (int i = 1; i <= target; ++i) {
-            for (int j = 0; j < nums.length; ++j) {
-                // check if cur nums[j] can be sub dp
-                if (i - nums[j] >= 0) {
-                    dp[i] += dp[i - nums[j]];
+        for (int i = 1; i < dp.length; ++i) {
+            dp[i] = 0;
+            for (int j = 0; j < a.length; ++j) {
+                // check subproblems contains a[j]
+                if (i >= a[j]) {
+                    dp[i] += dp[i - a[j]];
                 }
             }
         }
-        return dp[target];
+
+        return dp[x];
     }
 }
 
 /*
-top-down memory search version:
-*/
-class Solution {
-    // store combination results for target [0 : target]
-    private int[] dp;
-    public int combinationSum4(int[] nums, int target) {
-        dp = new int[target + 1];
-        // mark uncalculated dp with -1
-        Arrays.fill(dp, -1);
-        dp[0] = 1;
-        return helper(nums, target);
-    }
-
-    private int helper(int[] nums, int target) {
-        if (dp[target] != -1) {
-            // directly return prev result
-            return dp[target];
-        }
-        int res = 0;
-        for (int i = 0; i < nums.length; i++) {
-            // check if dp[i] can be sub-problem
-            if (target >= nums[i]) {
-                res += helper(nums, target - nums[i]);
-            }
-        }
-        // save result to dp[]
-        dp[target] = res;
-        return res;
-    }
-}
-
-/*
-recursive approach:
+Recursive approach: same idea as DP, but TLE..
 */
 class Solution {
     public int combinationSum4(int[] nums, int target) {

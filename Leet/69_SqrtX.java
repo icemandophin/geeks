@@ -1,3 +1,4 @@
+/*
 Pay attention to int overflow => no mid*mid but x/mid
 (x/2 + 1)(x/2 + 1) >= x, hence right boundary can be x/2 + 1
 */
@@ -5,7 +6,7 @@ Pay attention to int overflow => no mid*mid but x/mid
 binary search approach:
 for x>=0, (x/2 + 1)(x/2 + 1) >= x
 its sqrt will not be bigger than x/2+1
-hence right boundary can be x/2 + 1 
+hence right boundary can be x/2 + 1
 Notice: if x does not exist in sorted A[0, N-1] array
 binary search will end by top > end => A[end] < x < A[top]
 Avoid overflow: use mid == x/mid as condition

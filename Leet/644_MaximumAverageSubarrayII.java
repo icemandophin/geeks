@@ -22,21 +22,33 @@ public class Solution {
             error = Math.abs(prev_mid - mid);
             prev_mid = mid;
         }
+
         return min_val;
     }
+
+    // check whether nums has subarray (>= k) that AVG bigger than mid
     public boolean check(int[] nums, double mid, int k) {
         double sum = 0, prev = 0, min_sum = 0;
-        for (int i = 0; i < k; i++)
-            // (a1+a2+a3...+aj)/j≥mid
+        for (int i = 0; i < k; i++) {
+            // (a1+a2+a3...+aj)/j ≥ mid
+            // => let b[i] = a[i] - mid
+            // get sum of b[0] - b[k - 1]
             sum += nums[i] - mid;
-        if (sum >= 0)
+        }
+        if (sum >= 0) {
             return true;
+        }
         for (int i = k; i < nums.length; i++) {
+            // add b[i]
             sum += nums[i] - mid;
+            // add b[j]
             prev += nums[i - k] - mid;
+            // get cur min sum of b[i]
             min_sum = Math.min(prev, min_sum);
-            if (sum >= min_sum)
+            // check if sum[i] - sum[j] >= 0
+            if (sum >= min_sum) {
                 return true;
+            }
         }
         return false;
     }
