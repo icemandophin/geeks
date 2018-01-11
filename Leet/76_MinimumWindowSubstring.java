@@ -44,3 +44,57 @@ class Solution {
         return res;
     }
 }
+
+/*
+hash map as template
+*/
+class Solution {
+    public String minWindow(String s, String t) {
+        if (s == null || t == null || t.length() > s.length()) {
+            return "";
+        }
+        String res = "";
+        Map<Character, Integer> map = new HashMap<>();
+        // load map with t
+        for (char c : t.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+        int cnt = map.size();
+        int n = s.length();
+        int top = 0;
+        int end = 0;
+        // min need to be n + 1 to include s == t scenario
+        int min = n + 1;
+        // catepillar approach
+        while (end < n) {
+            // move end forward
+            char c = s.charAt(end);
+            if (map.containsKey(c)) {
+                map.put(c, map.get(c) - 1);
+                if (map.get(c) == 0) {
+                    cnt--;
+                }
+            }
+            end++;
+            // move top forward when t is fully matched
+            while (cnt == 0) {
+                // update cur result
+                if (end - top < min) {
+                    min = end - top;
+                    res = s.substring(top, end);
+                }
+
+                char e = s.charAt(top);
+                if (map.containsKey(e)) {
+                    map.put(e, map.get(e) + 1);
+                    if (map.get(e) > 0) {
+                        cnt++;
+                    }
+                }
+                top++;
+            }
+        }
+
+        return res;
+    }
+}

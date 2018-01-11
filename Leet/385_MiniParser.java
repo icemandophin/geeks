@@ -1,8 +1,11 @@
 /*
-iterative:
-push empty list to stack for each '['
-convert num and add to stack top/same layer
-pop stack top for each ']'
+iterative approach:
+If a[0] != '[' => contains single number => return
+for each '[' => need create new layer => push stack
+for each digit => just move 2 pointers (start and i) to update cur number
+for each ',' => cur number ends => add to cur layer result/stack top
+for each ']' => cur layer is part of upper layer => add to cur layer result/stack top
+             => ']' indicates cur layer end => pop Stack
 */
 class Solution {
     public NestedInteger deserialize(String s) {
@@ -26,6 +29,9 @@ class Solution {
             if (a[i] == '[') {
                 // push empty list as stack top
                 NestedInteger em = new NestedInteger();
+                // NestedInteger em is part of upper layer
+                // hence add to cur stack top
+                // notice it is always pass by ref - res contains all sub obj
                 sk.peek().add(em);
                 sk.push(em);
                 // move start to next index
@@ -41,12 +47,13 @@ class Solution {
                 // move start to next index
                 // handle next NestedInteger
                 start = i + 1;
-                //
+                // current layer end
                 if (a[i] == ']') {
                     sk.pop();
                 }
             }
         }
+        // results added to res during stack ops
         return res;
     }
 }
