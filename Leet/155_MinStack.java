@@ -15,7 +15,7 @@ class MinStack {
     }
 
     public void push(int x) {
-        if (x<=min) {
+        if (x <= min) {
             stack.push(min);
             min = x;
         }
@@ -24,6 +24,8 @@ class MinStack {
 
     public void pop() {
         if (stack.pop() == min) {
+            // according to push
+            // element below cur min is always 2nd min
             min = stack.pop();
         }
     }
