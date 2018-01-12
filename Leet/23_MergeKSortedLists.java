@@ -41,7 +41,7 @@ public class Solution {
 }
 
 /*
-decide and conquer:
+divide and conquer:
 if merge list1 & list2, then merge with list3, list4...
 time will be 2n + 3n + ... + kn = O(nk^2) => TLE
 optimize: merge lists 2 by 2 until only list left:

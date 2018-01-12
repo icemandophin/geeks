@@ -40,6 +40,8 @@ public class Solution {
         for (int i = idx + 1; i <= s.length(); ++i) {
             String cut = s.substring(idx, i);
             if (dict.contains(cut)) {
+                // notice cur para is passed as new string not ref
+                // hence no need for cur.add/remove before/after DFS
                 dfs(s, dict, i, cur + (cur.length() > 0 ? " " : "") + cut, res);
             }
         }

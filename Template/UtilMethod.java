@@ -24,7 +24,10 @@ char low = Character.toLowerCase(ch);
 // split array with "/"
 String cut = str.split("/");
 
-// return reverse-order/descending Comparator 
+// reverse elements in list
+Collections.reverse(list);
+
+// return reverse-order/descending Comparator
 PriorityQueue maxHeap = new PriorityQueue<Integer>(Collections.reverseOrder());
 
 // sort customized array
