@@ -40,12 +40,12 @@ public class Tree {
         for (int i = 0; i < capacity; i++) {
             tree[i].visited = false;
         }
-        // delet target
+        // delete target
         tree[index].valid = false;
         tree[index].visited = true;
         size--;
         // traverse and find target's children
-        // delete chose children
+        // delete those children
         for (int i = 0; i < capacity; i++) {
             if (!tree[i].visited) {
                 int parent = findVisited(i);
@@ -59,6 +59,7 @@ public class Tree {
         return true;
     }
     // find unvisited node's ancester/ all parent to top
+    // if there is deleted node in the path, stop at 1st visited/deleted node
     private int findVisited(int index) {
         while (index != -1 && !tree[index].visited) {
             tree[index].visited = true;

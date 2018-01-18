@@ -20,7 +20,7 @@ class Solution {
         int N = height.length;
         int[] dp = new int[N];
         int i;
-
+        // get top height on left side
         for (i=0; i<N; ++i)
         {
             dp[i] = peak;

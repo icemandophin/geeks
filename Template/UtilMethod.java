@@ -6,6 +6,10 @@ int find = Collections.binarySearch(a, x);
 // search with customized comparator comp
 int find = Collections.binarySearch(a, x, comp);
 
+// generate random number 0 - 100
+Random rand = new Random();
+int num = rand.nextInt(101);
+
 // char to int:
 int num = Character.getNumericValue(ch);
 
