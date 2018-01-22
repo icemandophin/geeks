@@ -1,88 +1,35 @@
 /*
 iterative way:
+level order BFS and compare a.left with b.right
 */
-
-class Solution {
+public class Solution {
     public boolean isSymmetric(TreeNode root) {
-        if(root == null)
-        {
-            return true;
-        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        queue.offer(root);
 
-        Stack<TreeNode> sk = new Stack<TreeNode>();
-        TreeNode left, right;
+        while (!queue.isEmpty()) {
+            TreeNode peek1 = queue.poll();
+            TreeNode peek2 = queue.poll();
 
-        if(root.left != null)
-        {
-            if(root.right == null)
-            {
+            if (peek1 == null && peek2 == null) {
+                continue;
+            } else if (peek1 == null || peek2 == null) {
                 return false;
-            }
-            else
-            {
-                sk.push(root.left);
-                sk.push(root.right);
-            }
-        }
-        else if(root.right != null)
-        {
-            return false;
-        }
-
-        while(!sk.empty())
-        {
-            if(sk.size()%2 != 0)
-            {
-                // not balance
+            } else if (peek1.val != peek2.val) {
                 return false;
-            }
-
-            right = sk.pop();
-            left = sk.pop();
-            if(right.val != left.val)
-            {
-                return false;
-            }
-
-            if(left.left != null)
-            {
-                if(right.right == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    sk.push(left.left);
-                    sk.push(right.right);
-                }
-            }
-            else if(right.right != null)
-            {
-                return false;
-            }
-
-            if(left.right != null)
-            {
-                if(right.left == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    sk.push(left.right);
-                    sk.push(right.left);
-                }
-            }
-            else if(right.left != null)
-            {
-                return false;
+            } else {
+                // enqueue left/right child in reverse order
+                queue.add(peek1.left);
+                queue.add(peek2.right);
+                queue.add(peek1.right);
+                queue.add(peek2.left);
             }
         }
 
         return true;
     }
 }
-
 /*
 recursive way:
 */
