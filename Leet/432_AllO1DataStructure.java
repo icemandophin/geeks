@@ -1,14 +1,17 @@
 /*
-similar to LRU:
-double linked list by ascending order of count: each node contains hashset of keys whose count is cnt
+similar to LRU and time limited access:
+double linked list by ascending order of count: each node contains hashset of keys whose count is val
 HashMap(key -> cur_node) enables O(1) search of target key in list
-=> when GetMax/MinKey(): go to top/end node for
+=> when GetMax/MinKey(): go to top/end node
 => when Inc/Dec(Key): move key to neighbor node and add/remove node if necessary
 */
 class AllOne {
     private class ListNode {
+        // cnt of keys in this bucket
         public int val;
+        // set of keys
         public Set<String> keySet;
+        // double linked list for fast insert/remove
         public ListNode pre;
         public ListNode next;
 

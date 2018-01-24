@@ -2,7 +2,7 @@ class Solution {
     public List<String> topKFrequent(String[] words, int k) {
         List<String> res = new ArrayList<>();
         Map<String, Integer> map = new HashMap<>();
-        // min heap of size k - then reverse
+        // build and keep min heap of size k
         // compare (1) freq (2) alphabetical
         Queue<Map.Entry<String, Integer>> heap = new PriorityQueue<>(new Comparator<Map.Entry<String, Integer>>() {
             @Override
