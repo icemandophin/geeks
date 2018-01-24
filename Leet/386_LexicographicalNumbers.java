@@ -1,4 +1,5 @@
 /*
+iterative approach:
 refer: http://blog.csdn.net/mebiuw/article/details/52300529
 */
 public class Solution {
@@ -39,5 +40,41 @@ public class Solution {
             list.add(tmp);
         return list;
 
+    }
+}
+
+/*
+DFS approach:
+image branches of the tree
+1-10-100-1000-...
+ -11-110-1100-...
+ -12-120-1200-...
+ => always try to add small digit first
+ then add same digit with trailing 0s
+ then add digit + 1
+*/
+public class Solution {
+    public List<Integer> lexicalOrder(int n) {
+        List<Integer> result = new ArrayList<>();
+        dfs(1, n, result);
+
+        return result;
+    }
+
+    private void dfs(long curr, int n, List<Integer> result) {
+        // break condition: cur go beyond size boundary n
+        if (curr > n) {
+            return;
+        }
+        // add cur number first
+        result.add((int) curr);
+        // cur*10 add one additional 0 behind cur
+        // if cur*10 < n should add after cur
+        dfs(curr * 10, n, result);
+        // try to add next closet num => cur + 1
+        // notice to skip last digit == 9 scenario
+        if (curr % 10 != 9) {
+            dfs(curr + 1, n, result);
+        }
     }
 }
