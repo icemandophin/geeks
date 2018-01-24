@@ -19,6 +19,12 @@ int num = Integer.valueOf(str);
 // string to char array:
 char[] ch = str.toCharArray();
 
+// create string directly from char Array
+String str = new String(ch);
+
+// create list directly from hash map
+List created = new ArrayList<>(map.values());
+
 // check alphanumeric:
 boolean check = Character.isLetterOrDigit(ch);
 
@@ -35,6 +41,7 @@ Collections.reverse(list);
 PriorityQueue maxHeap = new PriorityQueue<Integer>(Collections.reverseOrder());
 
 // sort customized array
+// customized comparator
 Pair[] sorted = Collections.sort(pairs, new Comparator<Pair>(){
     public int compare(Pair a, Pair b) {
         return a.x - b.x;
