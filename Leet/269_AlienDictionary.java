@@ -33,6 +33,7 @@ public class Solution {
         for(int i = 0; i < words.length; ++i) {
             char[] word = words[i].toCharArray();
             for(int j = 0; j < word.length; ++j) {
+                // degree size will also be total number of nodes/chars
                 degree.put(word[j], 0);
             }
         }
