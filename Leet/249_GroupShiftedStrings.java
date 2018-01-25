@@ -13,6 +13,8 @@ public class Solution {
             // convert shift word to base str which always starts with 'a'
             for (int i = 0; i < str.length(); i++) {
                 if (i == 0) {
+                    // shift each char with below offset
+                    // makes key always start with 'a' 
                     offset = str.charAt(0) - 'a';
                 }
 

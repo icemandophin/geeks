@@ -25,6 +25,8 @@ class Solution {
             int j = cur[2];
             res.add(new int[] {a[i], b[j]});
             // only add neighbor nodes into heap
+            // only add (i+1, j) when j == 0
+            // so that always move j first, then move i
             if (j == 0 && i < m - 1) {
                 heap.offer(new int[] {a[i + 1] + b[j], i + 1, j});
             }

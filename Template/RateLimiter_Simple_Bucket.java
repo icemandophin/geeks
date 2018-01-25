@@ -1,6 +1,7 @@
 import java.util.*;
 
 /*
+ * similar to # 362
  * two buckets approach: one to save timestamp and one to save associated request count
  * notice bucket size is decided by resolution of timestamp like 1s / 1ms = 1000
  */

@@ -1,7 +1,9 @@
 /*
 follow up of #36:
 1. build similar flag for row/col/cube and fill with existing numbers
-2.
+2. DFS + backtrack for all possible solution:
+for each empty slot, try to fill 1 - 9 and DFS sub problem
+roll back if sub problem not working
 */
 
 public class Solution {
@@ -10,7 +12,7 @@ public class Solution {
         boolean[][] row = new boolean[N][N];
         boolean[][] col = new boolean[N][N];
         boolean[][] sq = new boolean[N][N];
-
+        // populate ref array refore resolve sudoku
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 if (board[i][j] != '.') {
@@ -20,7 +22,7 @@ public class Solution {
                 }
             }
         }
-
+        // DFS + backtrack
         dfs(board, row, col, sq);
     }
 
