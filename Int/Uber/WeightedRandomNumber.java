@@ -1,5 +1,8 @@
 /*
 random select value from v[] based on weight w[]
+regard [1 : sum{w[]}] as interval
+each w[i] cut it to buckets
+find which one rand number belongs to
 */
 public class Solution {
     public int weightRandomNumber(int[] v, int[] w) {
