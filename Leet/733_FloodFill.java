@@ -1,6 +1,6 @@
-
 /*
-Time complexity: O(m*n), space complexity: O(1)
+DFS approach: O(m*n), space complexity: O(1)
+check/fill cur pixel, then DFS 4 neighbor pixels
 */
 class Solution {
     public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {

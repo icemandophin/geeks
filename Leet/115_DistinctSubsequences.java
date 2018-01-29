@@ -1,8 +1,9 @@
 /*
 DP approach: O(M*N)
 dp[i][j]: # of subsequence in s[i] that match t[j]
-if s[j] = t[j] then dp[i][j] = dp[i-1][j-1]
-else dp[i][j] = dp[i-1][j]
+by default dp[i][j] = dp[i-1][j] (match t using just s[0 : i - 1])
+if s[j] = t[j] then it is possible to add new match as long as
+s[0 : i-1] and t[0 : j-1] can match => dp[i][j] += dp[i-1][j-1]
 */
 class Solution {
     public int numDistinct(String s, String t) {
