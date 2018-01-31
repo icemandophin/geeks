@@ -2,7 +2,7 @@
 // parent's direct child => 1st find O(n), then O(1)
 public class UnionFind {
     private int[] father = null;
-    public int Find(int x) {
+    public int find(int x) {
         if (father[x] == x) {
             return x;
         }

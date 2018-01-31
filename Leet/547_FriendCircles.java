@@ -1,77 +1,114 @@
 /*
-union-find approach
+union-find:
+init f[a] = a and cnt = n
+m[a][b] == m[b][a] => only traverse b > a
+if m[a][b] set => union a, b and update cnt/res
 */
 class Solution {
-    // record cur number of unions
-    private int cnt = 0;
-
     public int findCircleNum(int[][] m) {
-        if (m == null || m.length == 0) {
-            return 0;
-        }
         int n = m.length;
-        int[] root = new int[n];
-        int i, j;
-        int res = n;
-        // init as n unions
-        for (i = 0; i < n; ++i) {
-            root[i] = i;
+        int cnt = n;
+        int[] f = new int[n];
+        // init root
+        for (int i = 0; i < n; ++i) {
+            f[i] = i;
         }
-        for (i = 0; i < n; ++i) {
-            for (j = 0; j < n; ++j) {
+        // search and union
+        for (int i = 0; i < n; ++i) {
+            for (int j = i + 1; j < n; ++j) {
                 if (m[i][j] == 1) {
-                    // find root of i, j
-                    int ri = find(root, i);
-                    int rj = find(root, j);
-                    // merge their union if i, j have diff root
-                    if (ri != rj) {
-                        root[ri] = rj;
-                        // size decrease since two union become one
-                        res--;
-                    }
+                    cnt = union(f, i, j, cnt);
                 }
             }
         }
-        return res;
+
+        return cnt;
     }
-    // compress and find root of x
-    int find(int[] root, int x) {
-        while (x != root[x]) {
-            // path compression
-            root[x] = root[root[x]];
-            // jump to x's cur root
-            x = root[x];
+    // union circle and return updated circle number
+    // always let smaller index be root
+    private int union(int[] f, int i, int j, int cnt) {
+        // get roots
+        int fa = find(f, i);
+        int fb = find(f, j);
+        if (fa != fb) {
+            f[fb] = fa;
+            --cnt;
         }
-        return x;
+
+        return cnt;
+    }
+    // find root of person
+    private int find(int[] f, int i) {
+        if (f[i] == i) {
+            return i;
+        }
+
+        return f[i] = find(f, f[i]);
     }
 }
 
 /*
-DFS approach
+DFS: for each new person not visited
+1. add cnt as new circle
+2. dfs all connected nodes and mark them visited
+*/
+class Solution {
+    public int findCircleNum(int[][] m) {
+        int n = m.length;
+        boolean[] v = new boolean[n];
+        int cnt = 0;
+        // dfs for each person
+        for (int i = 0; i < n; ++i) {
+            if (v[i] == false) {
+                v[i] = true;
+                cnt++;
+                dfs(m, v, i);
+            }
+        }
+
+        return cnt;
+    }
+    // mark all related person of i visited
+    private void dfs(int[][] m, boolean[] v, int x) {
+        for (int i = 0; i < v.length; ++i) {
+            if (m[x][i] == 1 && !v[i]) {
+                v[i] = true;
+                dfs(m, v, i);
+            }
+        }
+    }
+}
+
+/*
+BFS - iterative:
 */
 public class Solution {
     public int findCircleNum(int[][] M) {
         int len = M.length;
         boolean[] visited = new boolean[len];
         int count = 0;
+        Queue<Integer> queue = new LinkedList<>();
 
         for (int i = 0; i < len; i++) {
             if (!visited[i]) {
-                dfs(M, i, visited);
+                queue.offer(i);
+                visited[i] = true;
+
+                while (!queue.isEmpty()) {
+                    int k = queue.poll();
+
+                    for (int j = 0; j < len; j++) {
+                        if (M[k][j] == 1 && !visited[j]) {
+                            queue.add(j);
+                            visited[j] = true;
+                        }
+                    }
+                }
+
                 count++;
             }
         }
 
         return count;
-    }
-
-    private void dfs(int[][] M, int i, boolean[] visited) {
-        visited[i] = true;
-
-        for (int j = 0; j < M.length; j++) {
-            if (M[i][j] == 1 && !visited[j]) {
-                dfs(M, j, visited);
-            }
-        }
     }
 }
