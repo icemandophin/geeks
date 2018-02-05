@@ -30,8 +30,15 @@ public class Solution {
         RandomListNode res = map.get(head);
         cur = res;
         while (cur != null) {
-            cur.next = map.get(cur.next);
-            cur.random = map.get(cur.random);
+            // always check if next node exist
+            if (cur.next != null) {
+                cur.next = map.get(cur.next);
+            }
+
+            if (cur.random != null) {
+                cur.random = map.get(cur.random);
+            }
+            
             cur = cur.next;
         }
 

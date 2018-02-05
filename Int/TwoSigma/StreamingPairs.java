@@ -23,7 +23,12 @@ public class StreamingPair implements Runnable {
     public void run() {
         while (true) {
             try {
+                // stream is blocking queue
+                // no need lock
+                // each time new element coming always print all matching pairs 
                 double last = stream.take();
+                // printPairs read/write to both queues
+                // need to lock before R/W                
                 lock.lock();
 
                 try {
@@ -38,12 +43,16 @@ public class StreamingPair implements Runnable {
     }
 
     private void printPairs(double last) {
+        // always add cur element to its "own" queue
+        // then compare to the othe queue and print
+        // thread_1's q1 is thread_2's q2
         queue1.offer(last);
-
+        // remove the other queue's "old" element
         while (!queue2.isEmpty() && queue2.peek() <= last - 1) {
             queue2.poll();
         }
-
+        // for each element in the other queue 
+        // print every pair within distance 1: (a, b1), (a, b2) ...
         for (double num : queue2) {
             if (Math.abs(num - last) < 1) {
                 System.out.println(last + ", " + num);
