@@ -1,4 +1,37 @@
 /*
+two pointer approach:
+let f(i) = a[i] => verify f(i) == f(j) exist
+f(i) == f(j) => f{...f(i)} == f{...f(j)}
+=> pointer with diff speed will always meet
+
+ref: http://bookshadow.com/weblog/2015/09/28/leetcode-find-duplicate-number/
+*/
+class Solution {
+    public int findDuplicate(int[] a) {
+        int slow = 0;
+        int fast = 0;
+
+        while (true) {
+            // fast with 2x speed
+            slow = a[slow];
+            fast = a[a[fast]];
+
+            if (slow == fast) {
+                break;
+            }
+        }
+        // find intersection which is repeated num
+        slow = 0;
+        while (slow != fast) {
+            slow = a[slow];
+            fast = a[fast];
+        }
+
+        return slow;
+    }
+}
+
+/*
 binary search: O(nlog(n)) time, O(1) space
 count number of
 */
@@ -28,34 +61,5 @@ class Solution {
         }
 
         return top;
-    }
-}
-
-/*
-optimize: O(n) time
-ref: http://keithschwarz.com/interesting/code/?dir=find-duplicate
-*/
-public class Solution {
-    public int findDuplicate(int[] nums) {
-        int slow = 0;
-        int fast = 0;
-
-        while (true) {
-            slow = nums[slow];
-            fast = nums[nums[fast]];
-
-            if (slow == fast) {
-                break;
-            }
-        }
-
-        slow = 0;
-
-        while (slow != fast) {
-            slow = nums[slow];
-            fast = nums[fast];
-        }
-
-        return slow;
     }
 }
