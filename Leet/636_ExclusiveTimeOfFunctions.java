@@ -1,4 +1,5 @@
 /*
+use stack to simulate call stack:
 start function f1 can be ended by another start of f2
 => use stack to handle cur/prev func
 output is sorted by id
