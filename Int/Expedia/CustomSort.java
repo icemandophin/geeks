@@ -37,14 +37,13 @@ public class Solution {
 			q.offer(entry);
 		}
 
-		int j = 0;
 		while (!q.isEmpty()) {
 			Map.Entry<Integer, Integer> entry = q.poll();
 			int val = entry.getKey();
 			int cnt = entry.getValue();
 
 			for (int k = 0; k < cnt; ++k) {
-				a[j++] = val;
+				System.out.println(val);
 			}
 		}
 	}

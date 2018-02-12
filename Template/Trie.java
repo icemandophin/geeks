@@ -32,6 +32,8 @@ public class Trie {
                 cur = addNode;
             }
         }
+
+        cur.isWord = true;
     }
     // check if word is in the trie
     public boolean search(String word) {

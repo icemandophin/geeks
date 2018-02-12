@@ -100,7 +100,7 @@ public class Codec {
             return;
         }
         // add root first, then recursive traverse left/right subtree
-        list.add(root.val + "");
+        list.add(root.val + " ");
         preOrder(root.left, list);
         preOrder(root.right, list);
     }

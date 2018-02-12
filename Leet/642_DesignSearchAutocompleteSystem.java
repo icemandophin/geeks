@@ -82,7 +82,8 @@ public class AutocompleteSystem {
 
         return res;
     }
-
+    // insert word to Trie
+    // last char node contains cnt of this word
     private void insert(TrieNode node, String sentence, int count) {
         for (int i = 0; i < sentence.length(); i++) {
             char ch = sentence.charAt(i);

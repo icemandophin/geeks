@@ -1,60 +1,100 @@
 /*
-Valid tree:
-(1) all nodes are connected
-(2) No loop exist
-=> N-1 edges
+union-find:
+if there is loop
+=> two nodes in loop will connect in find() before found in edges[][]
 */
-
 public class Solution {
-    /**
-     * @param n an integer
-     * @param edges a list of undirected edges
-     * @return true if it's a valid tree, or false
-     */
     public boolean validTree(int n, int[][] edges) {
-        if (n == 0) {
-            return false;
-        }
-
+        // n nodes require n - 1 edges to connect without loop
         if (edges.length != n - 1) {
             return false;
         }
+        // record root of each node
+        int[] rec = new int[n];
+        for (int i = 0; i < n; i++) {
+            rec[i] = i;
+        }
 
-        Map<Integer, Set<Integer>> graph = initializeGraph(n, edges);
-
-        // bfs
-        Queue<Integer> queue = new LinkedList<>();
-        Set<Integer> hash = new HashSet<>();
-
-        queue.offer(0);
-        hash.add(0);
-        while (!queue.isEmpty()) {
-            int node = queue.poll();
-            for (Integer neighbor : graph.get(node)) {
-                if (hash.contains(neighbor)) {
-                    continue;
-                }
-                hash.add(neighbor);
-                queue.offer(neighbor);
+        for (int[] edge : edges) {
+            int parent1 = find(rec, edge[0]);
+            int parent2 = find(rec, edge[1]);
+            // check before union
+            // e[1] & e[2] already connect
+            // => there exist loop in e[1], e[2] and common root
+            if (parent1 == parent2) {
+                return false;
+            } else {
+                // connect e[1] and e[2]
+                rec[parent1] = parent2;
             }
         }
 
-        return (hash.size() == n);
+        return true;
     }
-    
-    private Map<Integer, Set<Integer>> initializeGraph(int n, int[][] edges) {
-        Map<Integer, Set<Integer>> graph = new HashMap<>();
+
+    int find(int[] rec, int child) {
+        int parent = child;
+
+        while (parent != rec[parent]) {
+            parent = rec[parent];
+        }
+
+        rec[child] = parent;
+
+        return parent;
+    }
+}
+
+/*
+DFS:
+build map (node -> connected nodes)
+=> dfs each node and its connection
+if there exist loop => one connected node is already visited during DFS
+*/
+public class Solution {
+    public boolean validTree(int n, int[][] edges) {
+        if (edges.length != n - 1) {
+            return false;
+        }
+        // for each node, build map of connected nodes
+        List<List<Integer>> rec = new ArrayList<List<Integer>>(n);
         for (int i = 0; i < n; i++) {
-            graph.put(i, new HashSet<Integer>());
+            rec.add(new ArrayList<Integer>());
+        }
+        // undirected map => add a - b and b - a
+        for (int[] edge : edges) {
+            rec.get(edge[0]).add(edge[1]);
+            rec.get(edge[1]).add(edge[0]);
+        }
+        // dfs and mark visited
+        boolean[] visited = new boolean[n];
+        dfs(rec, 0, -1, visited);
+        // record pre-node during DFS
+        // to avoid looping back to pre-node
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+                return false;
+            }
         }
 
-        for (int i = 0; i < edges.length; i++) {
-            int u = edges[i][0];
-            int v = edges[i][1];
-            graph.get(u).add(v);
-            graph.get(v).add(u);
+        return true;
+    }
+
+    private boolean dfs(List<List<Integer>> rec, int i, int parent, boolean[] visited) {
+        // return if node is visited/invalid
+        if (visited[i]) {
+            return false;
+        }
+        // mark cur node
+        visited[i] = true;
+        // when dfs connection, skip pre/parent node
+        // if next node already visited twice => loop
+        for (Integer j : rec.get(i)) {
+            if (j != parent && !dfs(rec, j, i, visited)) {
+                return false;
+            }
         }
 
-        return graph;
+        return true;
     }
 }
