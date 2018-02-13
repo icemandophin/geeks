@@ -17,6 +17,10 @@ public class Solution {
 
 /*
 x = 4^n <=> x = 2^2n && (x - 1) % 3 == 0
+Proof (Mathematical Induction):
+1. n = 1 => 2 ^ (2 * 1) - 1 = 3 correct
+2. suppose (4^n - 1) % 3 == 0 correct
+3. 4 ^ (n + 1) = 4 * (4 ^ n - 1) + 3 => %3 == 0 => correct
 */
 public class Solution {
     public boolean isPowerOfFour(int num) {
