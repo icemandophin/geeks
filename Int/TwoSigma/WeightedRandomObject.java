@@ -10,10 +10,11 @@ public class Solution {
 
     	int cnt1 = 0, cnt2 = 0, cnt3 = 0;
 
-    	for (int i = 0; i < 1000000; ++i) {
-    		if (test.get().equals("abc")) {
+    	for (int i = 0; i < 10000; ++i) {
+            String cur = test.get();
+    		if (cur.equals("abc")) {
     			cnt1++;
-    		} else if (test.get().equals("def")) {
+    		} else if (cur.equals("def")) {
     			cnt2++;
     		} else {
     			cnt3++;
