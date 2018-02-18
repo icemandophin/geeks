@@ -1,6 +1,6 @@
 /*
 iterative with constant space:
-use lv to refer 1st node on eavh level
+use lv to refer 1st node on NEXT level
 use cur to traverse each level and connect nodes
 */
 public class Solution {

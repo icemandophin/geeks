@@ -26,7 +26,7 @@ public class Solution {
 
         return false;
     }
-
+    // DFS try to match word[i : N-1] in baord, starting from b[i][j] 
     private boolean dfs(char[][] board, String word, int i, int j, boolean[][] visited, int index, int[][] move)
     {
         if (index == word.length())

@@ -1,5 +1,8 @@
 /*
-if
+if len diff > 1 => false
+start str compare after first diff
+if diff == 1 => delete one char and compare remaining
+if diff == 0 => replace one and compare remaining
 */
 public boolean isOneEditDistance(String s, String t) {
     int m = s.length();
@@ -29,6 +32,6 @@ public boolean isOneEditDistance(String s, String t) {
     	}
     }
     // All previous chars are the same
-    // check if deleting the end char in the longer one works 
+    // check if deleting the end char in the longer one works
     return Math.abs(m - n) == 1;
 }
