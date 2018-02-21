@@ -19,6 +19,9 @@ int num = Integer.valueOf(str);
 // string to char array:
 char[] ch = str.toCharArray();
 
+// list to array:
+String[] arr = list.toArray(new String[list.size()]);
+
 // create string directly from char Array
 String str = new String(ch);
 
