@@ -6,6 +6,8 @@ one doubly linked list cotaining non-empty frequency nodes
 each node i has a list of keys that all have freq of i (in insertion order)
 one HashMap maps key to node(countMap), the other maps key to value (valMap)
 */
+import java.util.*;
+
 class ListNode {
     public int count;
     // hashset with order of insertion, all keys inside has same freq
@@ -19,7 +21,7 @@ class ListNode {
     }
 }
 
-public class LFUCache {
+class LFUCache {
     private ListNode head;
     private ListNode tail;
     private Map<Integer, Integer> valMap;
