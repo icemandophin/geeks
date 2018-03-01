@@ -1,57 +1,83 @@
 /*
-* 这道题关键在于仔细的处理每一个步骤：
-* 1、每一行选择K的单词，K个单词的长度+K-1个空格的长度必须要小于maxWidth，这里每次选择满足这个条件的最大值就可以
-* 2、对于已经选定了K个单词，首先计算基本空格，也就是space=（maxWidth-所有单词的长度）/ （k-1），但是还有多余出一部分空格，那么就在附加空格的时候，从左边开始每次多加一个，满足题目的左边的空格大于等于右边的（至多多一个）
-* 3、注意只有1个单词的场景
-* 4、最后一行需要调整，最后一行单词之间的空格只有1个，末尾再用空格补足长度“
+keep recording total len of words and min space for cur line
+if exceed limit X => print cur line
+space_cnt / X and space_cnt % X to get space needed to insert
+Notice: for last line all extra space goes to tail
 */
+class Solution {
+    public List<String> fullJustify(String[] words, int x) {
+        List<String> res = new ArrayList<>();
+        // record # of space in cur line
+        int cnt = 1;
+        // record total word len in cur line
+        int len = words[0].length();
+        // index of cur word
+        int i = 1;
 
-public class Solution {
-    /**
-     * 这道题关键在于仔细的处理每一个步骤：
-     * 1、每一行选择K的单词，K个单词的长度+K-1个空格的长度必须要小于maxWidth，这里每次选择满足这个条件的最大值就可以
-     * 2、对于已经选定了K个单词，首先计算基本空格，也就是space=（maxWidth-所有单词的长度）/ （k-1），但是还有多余出一部分空格，那么就在附加空格的时候，从左边开始每次多加一个，满足题目的左边的空格大于等于右边的（至多多一个）
-     * 3、注意只有1个单词的场景
-     * 4、最后一行需要调整，最后一行单词之间的空格只有1个，末尾再用空格补足长度“
-     * */
-    public List<String> fullJustify(String[] words, int maxWidth) {
-        List<String> result = new ArrayList<String>();
-        int start=0,end=1,n=words.length;
-        while(start<n){
-            int compulsorySpaces=0; //必须的空格，为当前选中单词数量-1
-            int wordLength=words[start].length();//当前单词的数量
-            while(end<n && compulsorySpaces+1+wordLength+words[end].length()<=maxWidth){ //试探选择最大的单词数量
-                compulsorySpaces++;
-                wordLength+=words[end].length();
-                end++;
-            }
-            if(end==n){ //末行特殊处理
-                StringBuilder sb=new StringBuilder(words[start]);
-                for(int k=start+1;k<end;k++) sb.append(" "+words[k]);
-                for(int k=wordLength+compulsorySpaces;k<maxWidth;k++) sb.append(" ");
-                result.add(sb.toString());
-                break;
-            }
-            if(end-start==1){ //只选中的一个的特殊处理，因为计算空格未出现除数为0的状况
-                StringBuilder sb=new StringBuilder(words[start]);
-                for(int k=wordLength;k<maxWidth;k++)
-                    sb.append(" ");
-                result.add(sb.toString());
-            } else{//处理多个空格
-                int space = (maxWidth-wordLength)/(end-start-1); //基本的空格
-                int remains = maxWidth-wordLength-(end-start-1)*space; //因为整除未能分配的空格数量
-                StringBuilder sb=new StringBuilder(words[start]);
-                for(int k=start+1;k<end;k++){
-                    for(int l=0;l<space;l++) sb.append(" ");
-                    if(remains-->0) sb.append(" "); //在大于0，也就是还需要在左边多加空格的时候，多给一个
-                    sb.append(words[k]);
+        while (i < words.length) {
+            int wl = words[i].length();
 
-                }
-                result.add(sb.toString());
+            if (len + wl + cnt > x) {
+                // exceed line limit when adding w[i]
+                // currently # of space equals to # of words
+                // => write words[i - cnt : i) into res
+                res.add(writeLine(words, x, i, cnt, len));
+                // reset space and word len count
+                // and start new line with words[i] as top word
+                cnt = 1;
+                len = wl;
+            } else {
+                // add more words
+                cnt++;
+                len += wl;
             }
-            start=end;
-            end=end+1;
+
+            i++;
         }
-        return result;
+        // handle last line: add space at the end
+        res.add(writeLine(words, x, i, cnt, len));
+
+        return res;
+    }
+    // arrange word/space mixture with end word index, space count and expected word length
+    private String writeLine(String[] words, int x, int i, int cnt, int len) {
+        StringBuilder res = new StringBuilder();
+        int space = 1;
+        int extra = 0;
+        // space allocation
+        if (i != words.length && cnt != 1) {
+            // get # of spaces between 2 words
+            space = (x - len) / (cnt - 1);
+            // get # of additional spaces to fill in first k slots
+            extra = (x - len) % (cnt - 1);
+        }
+        // build cur line
+        for (int j = i - cnt; j < i; ++j) {
+            // check if start of line
+            // if not, insert space in 2 layers
+            if (res.length() > 0) {
+                // insert spaces
+                addSpace(res, space);
+                // add additional spaces
+                if (extra > 0) {
+                    addSpace(res, 1);
+                    extra--;
+                }
+            }
+            // add word
+            res.append(words[j]);
+        }
+        // for last line: fill remaining of line with space
+        if (res.length() < x) {
+            addSpace(res, x - res.length());
+        }
+
+        return res.toString();
+    }
+    // add n spaces to cur string builder
+    private void addSpace(StringBuilder res, int n) {
+        for (int i = 0; i < n; ++i) {
+            res.append(" ");
+        }
     }
 }
