@@ -1,5 +1,6 @@
 /*
-可以用dp做，生成两个dp matrix, 一个记前3位，一个记后3位。dp[j] 就是前i位digit 和为j的方案数。  两个dp matrix 初始化稍微不一样。. 涓€浜�-涓夊垎-鍦帮紝鐙鍙戝竷
+可以用dp做，生成两个dp matrix, 一个记前3位，一个记后3位。dp[i][j] 就是前i位digit 和为j的方案数。
+两个dp matrix 初始化稍微不一样。
 时间复杂度O(3*28*10)
 */
 #include <iostream>
@@ -41,7 +42,7 @@ int betterSoln() {
             }
         }
     }
-    int ans = 0;-google 1point3acres
+    int ans = 0;
     for(int s = 1; s <= 27; s++) {
         ans += firstHalf[2][s] * secondHalf[2][s];
     }
