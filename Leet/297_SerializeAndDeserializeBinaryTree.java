@@ -1,14 +1,4 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
- */
-
- /*
+/*
 iterative approach: BFS with queue
 dequeue new node => visit node => enqueue its children
 keep in loop until queue is empty
@@ -83,7 +73,6 @@ define symbol for null node and ending symbol
 encode and decode using the same traversal sequence
 */
 public class Codec {
-
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
         List<String> res = new ArrayList<>();
@@ -125,3 +114,13 @@ public class Codec {
 // Your Codec object will be instantiated and called as such:
 // Codec codec = new Codec();
 // codec.deserialize(codec.serialize(root));
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
