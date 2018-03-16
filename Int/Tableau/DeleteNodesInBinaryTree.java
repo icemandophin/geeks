@@ -1,3 +1,8 @@
+/*
+delete nodes whose value is listed in Set
+if root got deleted, its children also got deleted
+return list of deleted nodes
+*/
 class Solution {
     public List<TreeNode> deleteNodes(TreeNode root, Set<Integer> set) {
         List<TreeNode> res = new ArrayList<>();
