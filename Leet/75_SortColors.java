@@ -4,7 +4,8 @@ use top to mark first index of 0 subarray, end to mark last index of 2 subarray
 for each a[i] = 0 swap with top and increase top
 for each a[i] = 2 swap with end and decrease end
 for a[i] = 1 skip
-Notice: a[i] = 2 cannot increase i, since a[i] can be 0 after swap, and require further swap with top
+Notice: a[i] = 2 cannot increase i, since a[i] can be 0 after swap, and require
+further swap with top
 */
 class Solution {
     public void sortColors(int[] a) {
