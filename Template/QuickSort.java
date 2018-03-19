@@ -17,19 +17,19 @@ public class Solution {
         int low = start + 1;
         int high = end;
 
-           while (low <= high) {
-               if (array[low] < pivot) {
-                   low++;
-               } else if (array[high] >= pivot) {
-                   high--;
-               } else {
-                   int temp = array[low];
-                   array[low] = array[high];
-                   array[high] = temp;
-                   low++;
-                   high--;
-               }
+       while (low <= high) {
+           if (array[low] < pivot) {
+               low++;
+           } else if (array[high] >= pivot) {
+               high--;
+           } else {
+               int temp = array[low];
+               array[low] = array[high];
+               array[high] = temp;
+               low++;
+               high--;
            }
+       }
 
         array[start] = array[high];
         array[high] = pivot;

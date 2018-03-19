@@ -1,5 +1,5 @@
 /*
-Q: Given a positive integer n, find the no of integers less than equal to n,
+Q: Given a positive integer n, find the # of integers less than equal to n,
 whose binary representation doesn't contain consecutive 1s
 eg:
 I/P : 4
