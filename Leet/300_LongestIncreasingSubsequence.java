@@ -53,9 +53,8 @@ class Solution {
         }
         // use list to hold dynamic increasing array
         ArrayList<Integer> b = new ArrayList<Integer>();
-        int res = 1;
-        int i;
-        for (i = 0; i < N; ++i) {
+
+        for (int i = 0; i < N; ++i) {
             if ((b.size() == 0) || (a[i] > b.get(b.size() - 1))) {
                 // a[i] can make current LIS grow, make it new end/max element
                 b.add(a[i]);
