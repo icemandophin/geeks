@@ -5,9 +5,12 @@ class Solution {
         }
         // define all possible value defined by 1/2/3 digits
         // one covers 1-20
-        String[] one = { "", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen" };
+        String[] one = { "", "One", "Two", "Three", "Four", "Five", "Six", "Seven",
+        "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen",
+        "Sixteen", "Seventeen", "Eighteen", "Nineteen" };
         // two covers 10-90
-        String[] two = { "", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
+        String[] two = { "", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty",
+        "Seventy", "Eighty", "Ninety" };
         // three covers 1k/1m/1b
         String[] three = { "", "Thousand", "Million", "Billion" };
 
