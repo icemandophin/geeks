@@ -22,6 +22,9 @@ char[] ch = str.toCharArray();
 // list to array:
 String[] arr = list.toArray(new String[list.size()]);
 
+// array to list:
+List<String> list = Arrays.asList(arr);
+
 // create string directly from char Array
 String str = new String(ch);
 

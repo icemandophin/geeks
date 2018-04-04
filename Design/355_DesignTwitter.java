@@ -96,7 +96,7 @@
          Set<Integer> users = userMap.get(userId).followed;
          // implement max heap with PQ
          PriorityQueue<Tweet> pq = new PriorityQueue<Tweet>(users.size(), (a,b)->(b.time-a.time));
-         // add all tweetHead
+         // add al tweetHead
          for (int u : users) {
              Tweet t = userMap.get(u).tweetHead;
              // check and ensure t is valid: null root will break code flow
@@ -145,3 +145,4 @@
          userMap.get(followerId).unfollow(followeeId);
      }
  }
+ 
