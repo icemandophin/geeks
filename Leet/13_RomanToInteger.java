@@ -1,6 +1,6 @@
 /*
 1. build roman letters mapping
-2. add when a[i]>a[i+1], otherwise minus  
+2. add when a[i]>a[i+1], otherwise minus
 3. convert string to array in Java
 */
 
@@ -20,7 +20,7 @@ public class Solution {
         hash.put('D', 500);
         hash.put('M', 1000);
 
-        char sa[]=s.toCharArray();
+        char sa[] = s.toCharArray();
 
         for(i = 0; i < s.length(); ++i)
         {
