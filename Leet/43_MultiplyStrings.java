@@ -22,6 +22,7 @@ class Solution {
         StringBuilder str = new StringBuilder();
         int i = 0;
         // skip '0' in front
+        // leave last 0 and return as result
         while (i < res.length - 1 && res[i] == 0) {
             i++;
         }
