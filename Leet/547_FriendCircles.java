@@ -45,6 +45,17 @@ class Solution {
 
         return f[i] = find(f, f[i]);
     }
+
+    // another version of find
+    // compress root path 
+    private int find_2(int[] root, int x) {
+        while (x != root[x]) {
+            x = root[x];
+            root[x] = find(root, root[x]);
+        }
+
+        return root[x];
+    }
 }
 
 /*
