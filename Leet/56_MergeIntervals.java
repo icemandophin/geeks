@@ -40,3 +40,32 @@ public class Solution {
         return res;
     }
 }
+
+/*
+for the result distinct Interval, the latter one’s start must > previous one’s end
+*/
+class Solution {
+    public List<Interval> merge(List<Interval> intervals) {
+        List<Interval> res = new ArrayList<>();
+        int n = intervals.size();
+
+        int[] s = new int[n];
+        int[] e = new int[n];
+        for (int i = 0; i < n; i++) {
+            s[i] = intervals.get(i).start;
+            e[i] = intervals.get(i).end;
+        }
+        // sort start/end
+        Arrays.sort(s);
+        Arrays.sort(e);
+
+        for (int i = 0, j = 0; i < n; ++i) {
+            if (i == n - 1 || s[i + 1] > e[i]) {
+                res.add(new Interval(s[j], e[i]));
+                j = i + 1;
+            }
+        }
+
+        return res;
+    }
+}
