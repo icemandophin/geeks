@@ -7,8 +7,11 @@ class Solution {
         int cur = 0;
         int res = 0;
         Map<Integer, Integer> map = new HashMap<>();
+        // add 0 -> 1 for preSum = k scenario
         map.put(0, 1);
+
         for (int i = 0; i < a.length; ++i) {
+            // calculate preSum[i]
             cur += a[i];
             if (map.containsKey(cur - k)) {
                 // there are preSum[j] in hash that cur/preSum[i] - preSum[j] = k

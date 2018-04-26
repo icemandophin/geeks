@@ -1,91 +1,107 @@
-public class Solution {
+class Solution {
     public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
-        List<List<String>> result = new ArrayList<>();
+        List<List<String>> res = new ArrayList<>();
+        // map of word in dict -> its trans words
         Map<String, List<String>> map = new HashMap<>();
+        // set of words in dict
+        Set<String> set = new HashSet<>(wordList);
 
-        if (bfs(beginWord, endWord, new HashSet<String>(wordList), map)) {
-            List<String> curr = new ArrayList<>();
-            curr.add(beginWord);
-
-            dfs(beginWord, endWord, map, curr, result);
+        // check if path exist to reducce time complexity
+        if (bfs(beginWord, endWord, set, map)) {
+            // dfs to find shortest paths
+            List<String> cur = new ArrayList<>();
+            cur.add(beginWord);
+            dfs(beginWord, endWord, map, cur, res);
         }
 
+        return res;
+    }
+    // find shortest paths with trans word map
+    private void dfs(String start, String end, Map<String, List<String>> map, List<String> cur, List<List<String>> res) {
+        if (start.equals(end)) {
+            // path found => add to res
+            res.add(new ArrayList<String>(cur));
 
-        return result;
+            return;
+        }
+
+        if (!map.containsKey(start)) {
+            // cannot move to next word in dict
+            return;
+        }
+
+        List<String> trans = map.get(start);
+        for (String t : trans) {
+            cur.add(t);
+            // search from each trans word
+            dfs(t, end, map, cur, res);
+            // backtrack
+            cur.remove(cur.size() - 1);
+        }
     }
 
-    private boolean bfs(String beginWord, String endWord, Set<String> wordList, Map<String, List<String>> map) {
-        Queue<String> queue = new LinkedList<>();
-        queue.offer(beginWord);
-        wordList.remove(beginWord);
-        boolean isFound = false;
+    // iterative bfs to check if there exist path start -> end
+    // and build map of each word's neighbors
+    private boolean bfs(String start, String end, Set<String> set, Map<String, List<String>> map) {
+        Queue<String> q = new LinkedList<>();
+        q.offer(start);
+        set.remove(start);
+        boolean res = false;
 
-        while (!queue.isEmpty()) {
-            int len = queue.size();
-            Set<String> visited = new HashSet<>();
+        while (!q.isEmpty()) {
+            int n = q.size();
+            // record visited trans word for cur layer
+            // then remove it from set as trim
+            Set<String> visit = new HashSet<>();
 
-            for (int i = 0; i < len; i++) {
-                String str = queue.poll();
-                map.put(str, new ArrayList<String>());
-                List<String> neighbors = getNeighbors(str);
-
-                for (String neighbor : neighbors) {
-                    if (wordList.contains(neighbor)) {
-                        map.get(str).add(neighbor);
-
-                        if (neighbor.equals(endWord)) {
-                    	    isFound = true;
-                    	}
-
-                        if (!isFound && visited.add(neighbor)) {
-                            queue.offer(neighbor);
+            // bfs words in the same layer
+            for (int i = 0; i < n; ++i) {
+                String cur = q.poll();
+                // build map of trans word
+                map.put(cur, new ArrayList<String>());
+                List<String> trans = transform(cur);
+                // check and enqueue trans word
+                for (String t : trans) {
+                    // check if exist in dict
+                    if (set.contains(t)) {
+                        map.get(cur).add(t);
+                        // match target
+                        if (t.equals(end)) {
+                            res = true;
+                        }
+                        // enqueue if t haven't been bfs before
+                        if (!res && !visit.contains(t)) {
+                            q.offer(t);
+                            visit.add(t);
                         }
                     }
                 }
             }
 
-            if (isFound) {
-                break;
+            // map should contain info for shortest path
+            if (res) {
+                return res;
             }
-
-            wordList.removeAll(visited);
+            // remove visited words from set to avoid duplicate search
+            set.removeAll(visit);
         }
 
-        return isFound;
+        return res;
     }
 
-    private void dfs(String beginWord, String endWord, Map<String, List<String>> map, List<String> curr, List<List<String>> result) {
-        if (beginWord.equals(endWord)) {
-            result.add(new ArrayList<String>(curr));
-            return;
-        }
+    private List<String> transform(String str) {
+        List<String> res = new ArrayList<>();
 
-        if (!map.containsKey(beginWord)) {
-            return;
-        }
-
-        for (String neighbor : map.get(beginWord)) {
-            curr.add(neighbor);
-            dfs(neighbor, endWord, map, curr, result);
-            curr.remove(curr.size() - 1);
-        }
-    }
-
-    private List<String> getNeighbors(String str) {
-        List<String> neighbors = new ArrayList<>();
-
-        for (int j = 0; j < str.length(); j++) {
-            char[] chars = str.toCharArray();
-
-            for (char c = 'a'; c <= 'z'; c++) {
-                if (c != chars[j]) {
-                    chars[j] = c;
-                    String neighbor = new String(chars);;
-                    neighbors.add(neighbor);
+        for (int i = 0; i < str.length(); ++i) {
+            char[] ch = str.toCharArray();
+            for (char j = 'a'; j <= 'z'; ++j) {
+                if (ch[i] != j) {
+                    ch[i] = j;
+                    res.add(new String(ch));
                 }
             }
         }
 
-        return neighbors;
+        return res;
     }
 }
