@@ -1,25 +1,4 @@
 /*
-callback approach
-*/
-interface Callback {
-    void callback(); // would be in any signature
-}
-
-class MyThread implements Runnable {
-
-    Callback c;
-
-    public MyThread(Callback c) {
-        this.c = c;
-    }
-
-    public void run() {
-        // some work
-        this.c.callback(); // callback
-    }
-}
-
-/*
 recommended: no limitation for inheritance
 */
 public class RunnableExample implements Runnable {
@@ -42,6 +21,28 @@ public class RunnableExample implements Runnable {
     }
 }
 
+/*
+callback approach
+*/
+interface Callback {
+    void callback(); // would be in any signature
+}
+
+class MyThread implements Runnable {
+
+    Callback c;
+
+    public MyThread(Callback c) {
+        this.c = c;
+    }
+
+    public void run() {
+        // some work
+        this.c.callback(); // callback
+    }
+}
+
+/*
 public class CustomThread extends Thread {
     @Override
     public void run() {
@@ -58,3 +59,4 @@ public class CustomThread extends Thread {
         thread.start();
     }
 }
+*/
