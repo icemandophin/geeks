@@ -6,7 +6,7 @@ public class Solution {
 
         return result;
     }
-    // inorder in BSZT => res[] is sorted
+    // inorder in BSZT => res[] is sorted diff descending
     private void inorder(TreeNode root, double target, int k, List<Integer> result) {
         if (root == null) {
             return;
@@ -20,6 +20,9 @@ public class Solution {
             if (Math.abs(root.val - target) < Math.abs(result.get(0) - target)) {
                 result.remove(0);
             } else {
+                // if root value diff is larger than list head
+                // following elements only generate larger diff
+                // => stop recursion and return 
                 return;
             }
         }
