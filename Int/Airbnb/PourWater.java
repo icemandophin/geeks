@@ -33,19 +33,23 @@ public class PourWater {
 
     while (water > 0) {
       int left = location - 1;
+      // as long as left slot is lower than cur left slot => move left
+      // this will stop at 1st local min on left
       while (left >= 0) {
         if (heights[left] + waters[left] > heights[left + 1] + waters[left + 1]) {
           break;
         }
         left--;
       }
+      // ensure local min on left is lower than drop down slot
+      // then add water height
       if (heights[left + 1] + waters[left + 1] < heights[location] + waters[location]) {
         pourLocation = left + 1;
         waters[pourLocation]++;
         water--;
         continue;
       }
-
+      // similiar approach on right
       int right = location + 1;
       while (right < heights.length) {
         if (heights[right] + waters[right] > heights[right - 1] + waters[right - 1]) {

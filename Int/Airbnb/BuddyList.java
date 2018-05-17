@@ -27,6 +27,7 @@ public class BuddyList {
     for (String name : friendsWishList.keySet()) {
       Set<String> wishList = friendsWishList.get(name);
       Set<String> intersection = new HashSet<>(wishList);
+      // get set of common cities
       intersection.retainAll(myWishList);
       int similarity = intersection.size();
       if (similarity >= wishList.size() / 2) {
