@@ -1,10 +1,10 @@
 // This is the text editor interface.
 // Anything you type or change here will be seen by the other person in real time.
 //                      root
-//                     /\
+//                     / \
 //                    a   b
-//                   / \  /\
-//                  c  d e  f
+//                   /\  / \
+//                  c d e  f
 //                 /
 //                g
 import java.util.*;
