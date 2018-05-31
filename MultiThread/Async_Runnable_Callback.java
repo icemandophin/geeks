@@ -43,6 +43,21 @@ class MyThread implements Runnable {
 }
 
 /*
+stop runnable feature:
+*/
+public class MyRunnable implements Runnable {
+    private volatile boolean shutdown;
+    public void run() {
+        while (!shutdown) {
+            // add logic here
+        }
+    }
+    public void shutdown() {
+        shutdown = true;
+    }
+}
+
+/*
 public class CustomThread extends Thread {
     @Override
     public void run() {
