@@ -4,7 +4,6 @@ apply backtrack model
 class Solution {
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
-        Arrays.sort(nums);
         List<Integer> cur = new ArrayList<>();
         backtrack(res, cur, nums, 0);
         return res;

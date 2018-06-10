@@ -11,7 +11,8 @@ class Solution {
 
         return res;
     }
-    // x is end index that delete ')' is allowed
+    // x is the start index of cur substring
+    // y is start index that delete ')' is allowed
     private void removeRight(String s, List<String> res, int x, int y, char[] par) {
         for (int cnt = 0, i = x; i < s.length(); ++i) {
             // count number of '('
