@@ -1,92 +1,57 @@
-/*
-Topological Sort DFS:
-time: O(n) space: O(n)
-*/
-import java.util.*;
-
 public class Solution {
     public String alienOrder(String[] words) {
-        // each list in array records following chars of cur ch
-        List<Integer>[] rec = new List[26];
-        String prev = null;
+        if (words == null || words.length == 0) return "";
+        if (words.length == 1) return words[0];
 
-        for (int i = 0; i < words.length; i++) {
-            String curr = words[i];
-
-            for (int j = 0; j < curr.length(); j++) {
-                int idx = curr.charAt(j) - 'a';
-                // init array for each char appeared
-                if (rec[idx] == null) {
-                    rec[idx] = new ArrayList<>();
+        boolean[][] graph = new boolean[26][26];
+        // mark existing letters
+        for (String w : words) {
+            for (char c : w.toCharArray()) {
+                graph[c - 'a'][c - 'a'] = true;
+            }
+        }
+        // build adjacent matrix
+        int first = 0;
+        int second = 1;
+        while (second < words.length) {
+            String s1 = words[first];
+            String s2 = words[second];
+            int minLen = Math.min(s1.length(), s2.length());
+            for (int i = 0; i < minLen; i++) {
+                if (s1.charAt(i) != s2.charAt(i)) {
+                    graph[s1.charAt(i) - 'a'][s2.charAt(i) - 'a'] = true;
+                    break;
                 }
             }
-
-            if (prev != null) {
-                int len1 = prev.length();
-                int len2 = curr.length();
-                int j = 0;
-
-                while (j < len1 && j < len2) {
-                    int idx1 = prev.charAt(j) - 'a';
-                    int idx2 = curr.charAt(j) - 'a';
-                    // get relative order from 1st diff
-                    if (idx1 != idx2) {
-                        rec[idx1].add(idx2);
-                        // cannot get further ordering from
-                        // following chars
-                        break;
-                    }
-
-                    j++;
-                }
-
-                if ((j == len1 || j == len2) && len1 > len2) {
-                    // edge case: ["abcde", "abc"] => no order
-                    return "";
-                }
-            }
-
-            prev = curr;
+            first++;
+            second++;
         }
 
+        // Do topologic sort
         StringBuilder sb = new StringBuilder();
+        boolean[] path = new boolean[26];
+        for (int i = 0; i < 26; i++) {
+            if (!dfs(graph, sb, i, path)) return "";
+        }
 
         for (int i = 0; i < 26; i++) {
-            if (rec[i] == null || !dfs(rec, i, new boolean[26], sb)) {
-                return "";
-            }
+            if (graph[i][i]) sb.append((char)(i + 'a'));
         }
-
-        sb.reverse();
-
-        return sb.toString();
+        return sb.reverse().toString();
     }
-    // check Topological order and add each char's children into res
-    // before adding char itself
-    private boolean dfs(List<Integer>[] rec, int i, boolean[] visited, StringBuilder sb) {
-        if (visited[i]) {
-            // loop detected
-            return false;
+
+    /** Do DFS to do topological sort. Return false for invalid input. */
+    boolean dfs(boolean[][] graph, StringBuilder sb, int index, boolean[] path) {
+        if (!graph[index][index]) return true; // visited or non-existing letter
+        path[index] = true; // track letters in the dfs path for detecting if DAG or not
+        for (int i = 0; i < 26; i++) {
+            if (i == index || !graph[index][i]) continue;
+            if (path[i]) return false; // cyclic path (non-DAG)
+            if (!dfs(graph, sb, i, path)) return false;
         }
-
-        String ch = Character.toString((char) ('a' + i));
-
-        if (sb.indexOf(ch) != -1) {
-            // i has been added to res by other ordering path
-            return true;
-        }
-
-        visited[i] = true;
-
-        for (Integer j : rec[i]) {
-            if (!dfs(rec, j, visited, sb)) {
-                return false;
-            }
-        }
-
-        visited[i] = false;
-        sb.append(ch);
-
+        path[index] = false;
+        graph[index][index] = false;
+        sb.append((char)(index + 'a'));
         return true;
     }
 }
