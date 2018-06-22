@@ -40,12 +40,12 @@ public class Vector2DIterator implements Iterator<Integer> {
     if (!hasNext()) {
       return null;
     }
-    int temp = cur;
+    int res = cur;
     lastOuterIndex = outerIndex;
     lastInnerIndex = innerIndex;
     innerIndex++;
     searchNext();
-    return temp;
+    return res;
   }
 
   @Override

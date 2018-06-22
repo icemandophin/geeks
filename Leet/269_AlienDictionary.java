@@ -52,7 +52,7 @@ public class Solution {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < 26; i++) {
-            if (rec[i] == null || !dfs(rec, i, new boolean[26], sb)) {
+            if (rec[i] != null && !dfs(rec, i, new boolean[26], sb)) {
                 return "";
             }
         }

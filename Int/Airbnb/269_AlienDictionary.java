@@ -30,10 +30,12 @@ public class Solution {
         // Do topologic sort
         StringBuilder sb = new StringBuilder();
         boolean[] path = new boolean[26];
+        // dfs and always append child before parent
+        // detect cycle at the same time
         for (int i = 0; i < 26; i++) {
             if (!dfs(graph, sb, i, path)) return "";
         }
-
+        // add remaining parent 
         for (int i = 0; i < 26; i++) {
             if (graph[i][i]) sb.append((char)(i + 'a'));
         }
