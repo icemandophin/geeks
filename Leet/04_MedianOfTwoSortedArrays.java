@@ -1,5 +1,6 @@
 /*
-detailed reference
+detailed reference:
+https://blog.csdn.net/yutianzuijin/article/details/11499917
 */
 public class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
