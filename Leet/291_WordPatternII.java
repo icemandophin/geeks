@@ -1,4 +1,4 @@
-/*
+ 2/*
 Given a pattern and a string str, find if str follows the same pattern.
 Here follow means a full match, such that there is a bijection between a letter
 in pattern and a non-empty substring in str.
@@ -58,7 +58,7 @@ public class Solution {
                     map.remove(key);
                     set.remove(word);
                 }
-            } else if (map.containsKey(key) && !map.get(key).equals(word)) {
+            } else if (map.containsKey(key) && map.get(key).equals(word)) {
                 // cur key - word fit prev mapping
                 if (dfs(pattern, i + 1, str, cut)) {
                     // remaining got matched, success

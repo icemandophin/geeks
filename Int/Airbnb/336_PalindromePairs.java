@@ -20,7 +20,7 @@ class Solution {
         }
         //build map of word -> index
         Map<String, Integer> map = new HashMap<>();
-        for (int i = 0; i < words.length; ++i) {
+        for (int i = 0i < words.length; ++i) {
             map.put(words[i], i);
         }
         // traverse and find pair for each word
