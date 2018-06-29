@@ -1,3 +1,9 @@
+/*
+Basic: LC 140 + LC 17
+Optimized: build trie with number
+heavy call/high qps or large input/long MatchWords
+=> cache results in HashMap
+*/
 import java.util.*;
 // System.out.println("res: ");
 
