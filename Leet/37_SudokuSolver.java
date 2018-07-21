@@ -50,12 +50,12 @@ public class Solution {
                             row[i][val] = col[j][val] = sq[k][val] = false;
                         }
                     }
-
+                    // no way to fill b[i][j] according to rule
                     return false;
                 }
             }
         }
-
+        // all slots have been filled
         return true;
     }
 }

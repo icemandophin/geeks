@@ -118,3 +118,75 @@ public class PreferenceList {
 //    System.out.println(pl.sortPreference(preferences, 0));
 //  }
 //}
+
+public class Solution {
+  public static void main(String[] args) {
+    PreferenceList pl = new PreferenceList();
+    List<List<Integer>> preferences = new ArrayList<>();
+    List<Integer> p1 = new ArrayList<>();
+    p1.add(2);
+    p1.add(3);
+    p1.add(5);
+    List<Integer> p2 = new ArrayList<>();
+    p2.add(4);
+    p2.add(2);
+    p2.add(1);
+    List<Integer> p3 = new ArrayList<>();
+    p3.add(4);
+    p3.add(1);
+    p3.add(5);
+    p3.add(6);
+    List<Integer> p4 = new ArrayList<>();
+    p4.add(4);
+    p4.add(7);
+    preferences.add(p1);
+    preferences.add(p2);
+    preferences.add(p3);
+    preferences.add(p4);
+    System.out.println(pl.sortPreference(preferences, 0));
+  }
+}
+
+class PreferenceList {
+  public List<Integer> sortPreference(List<List<Integer>> pref, int tieBreaker) {
+    List<Integer> res = new ArrayList<>();
+    Map<Integer, Set<Integer>> map = new HashMap<>();
+    Set<Integer> set = new HashSet<>();
+
+    for (int i = 0; i < pref.size(); ++i) {
+      for (int j = 0; j < pref.get(i).size(); ++j) {
+        int cur = pref.get(i).get(j);
+        if (!map.containsKey(cur)) {
+          map.put(cur, new HashSet<Integer>());
+        }
+
+        if (j > 0) {
+          int prev = pref.get(i).get(j - 1);
+          map.get(prev).add(cur);
+        }
+      }
+    }
+
+    for (Integer i : map.keySet()) {
+      dfs(map, set, res, i);
+    }
+
+    Collections.reverse(res);
+
+    return res;
+  }
+
+  private void dfs(Map<Integer, Set<Integer>> map, Set<Integer> set, List<Integer> res, int idx) {
+    if (set.contains(idx)) {
+      return;
+    }
+
+    set.add(idx);
+
+    for (Integer next : map.get(idx)) {
+      dfs(map, set, res, next);
+    }
+
+    res.add(idx);
+  }
+}

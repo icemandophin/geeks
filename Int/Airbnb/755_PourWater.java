@@ -80,7 +80,7 @@ public class PourWater {
       maxHeight = Math.max(maxHeight, heights[i] + waters[i]);
     }
 
-    for (int height = maxHeight; height >= 0; height--) {
+    for (int height = maxHeight; height > 0; height--) {
       for (int i = 0; i < n; i++) {
         if (height <= heights[i]) {
           System.out.print("+");
@@ -100,7 +100,7 @@ public class PourWater {
 //  public static void main(String[] args) {
 //    PourWater pw = new PourWater();
 //    int[] heights = {5,4,2,1,2,3,2,1,0,1,2,4};
-//    for (int i = 1; i <= 9; i++) {
+//    for (int i = 1; i < 9; i++) {
 //      pw.pourWater(heights, i, 5);
 //    }
 //  }

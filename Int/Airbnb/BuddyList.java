@@ -106,3 +106,97 @@ class Buddy implements Comparable<Buddy> {
 //    System.out.println(bl.recommendCities(2));
 //  }
 //}
+
+public class Solution {
+  public static void main(String[] args) {
+    Set<String> myWishList = new HashSet<>(Arrays.asList(new String[] { "a", "b", "c", "d" }));
+    Set<String> wishList1 = new HashSet<>(Arrays.asList(new String[] { "a", "b", "e", "f" }));
+    Set<String> wishList2 = new HashSet<>(Arrays.asList(new String[] { "a", "c", "d", "g" }));
+    Set<String> wishList3 = new HashSet<>(Arrays.asList(new String[] { "c", "f", "e", "g" }));
+    Map<String, Set<String>> friendWishLists = new HashMap<>();
+    friendWishLists.put("Buddy1", wishList1);
+    friendWishLists.put("Buddy2", wishList2);
+    friendWishLists.put("Buddy3", wishList3);
+    BuddyList bl = new BuddyList(myWishList, friendWishLists);
+    System.out.println(bl.recommendCities(10));
+    System.out.println(bl.recommendCities(2));
+  }
+}
+
+class BuddyList {
+  private List<Buddy> friends;
+  private Set<String> myList;
+
+  public BuddyList(Set<String> myList, Map<String, Set<String>> friendList) {
+    this.myList = myList;
+    friends = new ArrayList<Buddy>();
+
+    for (Map.Entry<String, Set<String>> entry : friendList.entrySet()) {
+      String name = entry.getKey();
+      Set<String> set = entry.getValue();
+      Set<String> both = new HashSet<>(set);
+      both.retainAll(myList);
+      int val = both.size();
+      if (val >= set.size() / 2) {
+        friends.add(new Buddy(name, val, set));
+      }
+    }
+  }
+
+  public List<Buddy> getFriends() {
+    Collections.sort(friends);
+    List<Buddy> res = new ArrayList<>(friends);
+
+    for (Buddy b : res) {
+      System.out.print(b.name + " : ");
+      for (String city : b.list) {
+        System.out.print(city + " ");
+      }
+      System.out.println();
+    }
+
+    return res;
+  }
+
+  public List<String> recommendCities(int k) {
+    List<String> res = new ArrayList<>();
+    Set<String> set = new HashSet<>();
+    List<Buddy> friends = getFriends();
+    int i = 0;
+
+    while (i < friends.size() && k > 0) {
+      Set<String> cur = new HashSet<>(friends.get(i++).list);
+      cur.removeAll(myList);
+      Iterator<String> it = cur.iterator();
+      while (k > 0 && it.hasNext()) {
+        String diff = it.next();
+        if (!set.contains(diff)) {
+          set.add(diff);
+          k--;
+        }
+      }
+    }
+
+    res.addAll(set);
+
+    return res;
+  }
+}
+
+class Buddy implements Comparable<Buddy> {
+  String name;
+  int val;
+  Set<String> list;
+
+  public Buddy(String name, int val, Set<String> wishList) {
+    this.name = name;
+    this.val = val;
+    list = wishList;
+  }
+
+  @Override
+  public int compareTo(Buddy b) {
+    return Integer.compare(b.val, this.val);
+  }
+
+}

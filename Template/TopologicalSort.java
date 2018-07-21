@@ -48,7 +48,7 @@ class TopologicalSort {
 			return;
 		}
 
-		// need to set cur visited first to void repeated search
+		// need to set cur visited first to avoid repeated search
 		visited.add(cur);
 
 		if (map.containsKey(cur)) {

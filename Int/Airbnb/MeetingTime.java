@@ -8,10 +8,12 @@
  *  [[2, 5], [9, 12]]
  * ]
  * Output
- * [[4, 6], [7, 9]]
+ * [[5, 6], [7, 9]]
  *
  * follow up:
  * 求不少于k个员工空闲的时间段（改一下check count的条件就可以了）
+ * Output (k == 2)
+ * [[1, 2], [4, 12]]
  */
 
 import java.util.ArrayList;
@@ -54,18 +56,23 @@ public class MeetingTime {
     for (int i = 0; i < points.size(); i++) {
       Point point = points.get(i);
       if (point.isStart) {
+        // count number of person that is busy right now
         count++;
         if (availableStart == null && i == 0 && count <= intervals.size() - k) {
+          // start interval at 1st start
           availableStart = point.time;
         } else if (availableStart != null && count == intervals.size() - k + 1) {
+          // found n - k people that are busy => cur interval should stop here
           res.add(new Interval(availableStart, point.time));
           availableStart = null;
         }
       } else {
         count--;
         if (count == intervals.size() - k && i < points.size() - 1) {
+          // has enought available people => start new interval
           availableStart = point.time;
         } else if (availableStart != null && i == points.size() - 1 && count <= intervals.size() - k) {
+          // end interval at last end
           res.add(new Interval(availableStart, point.time));
           availableStart = null;
         }
