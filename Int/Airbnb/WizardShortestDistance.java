@@ -34,9 +34,7 @@ public class WizardShortestDistance {
 
     bfs(map, source, target, parent);
 
-    // Output path
-    List<Integer> path = new ArrayList<>();
-    int cur = target;
+    // Output pathww'w'w'w'w'w'w'w'w'w'w'w'w'w'w'w'w'w'w
     while (cur != source) {
       path.add(cur);
       cur = parent[cur];
