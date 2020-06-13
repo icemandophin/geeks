@@ -106,3 +106,67 @@ public class FileSystem {
 //    System.out.println(fs.set("/a/b", 10)); // trigger 2 callbacks and true
 //  }
 //}
+
+/*
+use thread to trigger callback func
+*/
+class FileSystem {
+  Map<String, Integer> map;
+  Map<String, Runnable> cbMap;
+
+  public FileSystem() {
+    map = new HashMap<>();
+    cbMap = new HashMap<>();
+    map.put("", 0);
+  }
+
+  public boolean create(String path, int val) {
+    if (map.containsKey(path)) {
+      return false;
+    }
+
+    int idx = path.lastIndexOf("/");
+    if (!map.containsKey(path.substring(0, idx))) {
+      return false;
+    }
+
+    map.put(path, val);
+
+    return true;
+  }
+
+  public boolean set(String path, int val) {
+    if (!map.containsKey(path)) {
+      return false;
+    }
+
+    map.put(path, val);
+
+    String cur = path;
+    while (cur.length() > 0) {
+      if (cbMap.containsKey(cur)) {
+        Thread t = new Thread(cbMap.get(cur));
+        t.start();
+      }
+
+      int i = cur.lastIndexOf("/");
+      cur = cur.substring(0, i);
+    }
+
+    return true;
+  }
+
+  public Integer get(String path) {
+    return map.get(path);
+  }
+
+  public boolean watch(String path, Runnable callback) {
+    if (!map.containsKey(path)) {
+      return false;
+    }
+
+    cbMap.put(path, callback);
+
+    return true;
+  }
+}

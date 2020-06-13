@@ -174,3 +174,162 @@ public class BoggleGame {
 //    System.out.println(bg.findMostStr(board, dict));
 //  }
 //}
+
+
+public class Solution {
+  public static void main(String[] args) {
+    BoggleGame bg = new BoggleGame();
+    char[][] board = {
+            { 'o','a','t','h' },
+            { 'e','t','a','e' },
+            { 'i','h','k','r' },
+            { 'i','f','l','v' }
+    };
+    Set<String> dict = new HashSet<>();
+        /*
+        dict.add("oath");
+        dict.add("pea");
+        dict.add("eat");
+        dict.add("rain");
+        dict.add("eii");
+        */
+    dict.add("oath");
+    dict.add("eat");
+    dict.add("thf");
+    dict.add("erv");
+    dict.add("akl");
+
+    System.out.println(bg.findMostStr(board, dict));
+  }
+}
+
+class BoggleGame {
+  private int[][] mov = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
+
+  public BoggleGame() {}
+
+  public List<String> findMostStr(char[][] b, Set<String> dict) {
+    List<String> res = new ArrayList<>();
+    Trie trie = new Trie();
+    for (String d : dict) {
+      trie.add(d);
+    }
+
+    int m = b.length;
+    int n = b[0].length;
+    for (int i = 0; i < m; ++i) {
+      for (int j = 0; j < n; ++j) {
+        boolean[][] visited = new boolean[m][n];
+        List<Grid> path = new ArrayList<>();
+        List<String> cur = new ArrayList<>();
+        dfs(b, trie, trie.root, visited, cur, path, i, j);
+
+        if (cur.size() > res.size()) {
+          res.clear();
+          res.addAll(cur);
+        }
+      }
+    }
+
+    return res;
+  }
+
+  private void dfs(char[][] b, Trie trie, Node root, boolean[][] visited, List<String> cur, List<Grid> path, int i, int j) {
+    int m = b.length;
+    int n= b[0].length;
+    if (i < 0 || i >= m || j < 0 || j >= n || visited[i][j]) {
+      return;
+    }
+
+    char c = b[i][j];
+    if (!root.next.containsKey(c)) {
+      return;
+    }
+
+    path.add(new Grid(i, j));
+    root = root.next.get(c);
+    if (!root.word.isEmpty()) {
+      markGrids(path, visited);
+      cur.add(root.word);
+      root = trie.root;
+    }
+
+    for (int[] dir : mov) {
+      int x = i + dir[0];
+      int y = j + dir[1];
+
+      dfs(b, trie, root, visited, cur, path, x, y);
+    }
+  }
+
+  private void markGrids(List<Grid> path, boolean[][] visited) {
+    for (Grid g : path) {
+      visited[g.x][g.y] = true;
+    }
+
+    path.clear();
+  }
+}
+
+class Node {
+  public char c;
+  public String word;
+  Map<Character, Node> next;
+  public Node(char ch) {
+    c = ch;
+    word = "";
+    next = new HashMap<>();
+  }
+}
+
+class Trie {
+  public Node root;
+
+  public Trie() {
+    root = new Node('*');
+  }
+
+  public void add(String word) {
+    Node cur = root;
+    for (int i = 0; i < word.length(); i++) {
+      char c = word.charAt(i);
+      if (!cur.next.containsKey(c)) {
+        cur.next.put(c, new Node(c));
+      }
+      cur = cur.next.get(c);
+    }
+    cur.word = word;
+  }
+
+  public Response find(String word) {
+    Node cur = root;
+    for (int i = 0; i < word.length(); i++) {
+      char c = word.charAt(i);
+      if (!cur.next.containsKey(c)) {
+        return new Response(false, "");
+      }
+      cur = cur.next.get(c);
+    }
+    return new Response(true, cur.word);
+  }
+}
+
+class Response {
+  public boolean check;
+  public String word;
+
+  public Response(boolean f, String w) {
+    check = f;
+    word = w;
+  }
+}
+
+class Grid {
+  public int x;
+  public int y;
+
+  public Grid(int a, int b) {
+    x = a;
+    y = b;
+  }
+}
